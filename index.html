@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro Aurora 2026 · Letícia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" onerror="(function(){var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';document.head.appendChild(s);})()"></script>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg-2: #0f1424;
+  --card: #131826;
+  --card-hi: #1a2033;
+  --border: #232a3f;
+  --text: #e8ecf3;
+  --text-dim: #97a0b8;
+  --text-muted: #6b7390;
+  --aurora-green: #6fe6a8;
+  --aurora-cyan: #5ed3e0;
+  --aurora-purple: #b388f5;
+  --aurora-pink: #f08fc7;
+  --warm: #f0a868;
+  --warn: #f5b15c;
+  --error: #f06868;
+  --success: #6fe6a8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: 'DM Sans', system-ui, sans-serif; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; }
+.serif { font-family: 'Fraunces', Georgia, serif; font-weight: 400; }
+.serif-it { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+a { color: var(--aurora-cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* HERO */
+.hero { position: relative; min-height: 60vh; display: flex; align-items: center; padding: 80px 40px 60px; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at top right, rgba(111,230,168,0.12) 0%, transparent 50%), radial-gradient(ellipse at bottom left, rgba(179,136,245,0.18) 0%, transparent 50%), linear-gradient(180deg, #050811 0%, #0a0e1a 100%); }
+.aurora-anim { position: absolute; inset: 0; opacity: 0.35; }
+.aurora-anim::before, .aurora-anim::after { content: ''; position: absolute; width: 140%; height: 220px; left: -20%; filter: blur(48px); }
+.aurora-anim::before { top: 18%; background: linear-gradient(90deg, transparent 0%, var(--aurora-purple) 30%, var(--aurora-green) 60%, transparent 100%); animation: drift 20s ease-in-out infinite; }
+.aurora-anim::after { top: 35%; background: linear-gradient(90deg, transparent 0%, var(--aurora-cyan) 40%, var(--aurora-pink) 70%, transparent 100%); animation: drift 28s ease-in-out infinite reverse; }
+@keyframes drift { 0%, 100% { transform: translateX(-5%) translateY(0) skewY(-2deg); } 50% { transform: translateX(8%) translateY(-30px) skewY(2deg); } }
+.hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; width: 100%; }
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--aurora-cyan); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; }
+.hero h1 { font-family: 'Fraunces', serif; font-weight: 400; font-size: clamp(40px, 6vw, 72px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; }
+.hero h1 em { font-style: italic; color: var(--aurora-green); }
+.hero p.lede { font-size: 18px; color: var(--text-dim); max-width: 720px; line-height: 1.6; }
+.hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; margin-top: 40px; max-width: 800px; }
+.hero-meta div { padding: 14px 0; border-top: 1px solid var(--border); }
+.hero-meta .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; font-weight: 500; }
+.hero-meta .val { font-family: 'Fraunces', serif; font-size: 22px; color: var(--text); }
+
+/* STICKY BAR */
+.sticky-bar { position: sticky; top: 0; z-index: 100; background: rgba(10,14,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 12px 24px; }
+.sticky-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.tier-pill-group { display: flex; gap: 4px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 4px; }
+.tier-pill { padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-dim); transition: all 0.18s; border: none; background: transparent; }
+.tier-pill:hover { color: var(--text); }
+.tier-pill.active { background: var(--aurora-green); color: #0a0e1a; font-weight: 600; }
+.tier-pill.active.t2 { background: var(--aurora-cyan); }
+.tier-pill.active.t3 { background: var(--aurora-purple); }
+.live-total { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.live-total .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.live-total .val { font-family: 'Fraunces', serif; font-size: 26px; color: var(--text); font-weight: 500; }
+.live-total .pax { font-size: 11px; color: var(--text-muted); margin-left: 4px; }
+
+/* TABS */
+.tabs { background: var(--bg-2); border-bottom: 1px solid var(--border); padding: 0 24px; position: sticky; top: 56px; z-index: 99; backdrop-filter: blur(8px); }
+.tabs-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 14px 18px; background: transparent; border: none; color: var(--text-muted); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.18s; font-family: inherit; }
+.tab-btn:hover { color: var(--text-dim); }
+.tab-btn.active { color: var(--aurora-green); border-bottom-color: var(--aurora-green); }
+
+/* PANELS */
+.panel { display: none; padding: 48px 24px; max-width: 1400px; margin: 0 auto; }
+.panel.active { display: block; }
+.panel-header { margin-bottom: 32px; }
+.panel-header h2 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 36px; line-height: 1.1; margin-bottom: 8px; }
+.panel-header h2 em { color: var(--aurora-green); font-style: italic; }
+.panel-header p { color: var(--text-dim); max-width: 720px; }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.card-hi { background: var(--card-hi); }
+
+/* TIER OVERVIEW */
+.tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 32px; }
+.tier-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; position: relative; transition: all 0.18s; }
+.tier-card.recommended { border-color: var(--aurora-cyan); box-shadow: 0 0 0 1px rgba(94,211,224,0.15); }
+.tier-card.recommended::before { content: 'Recomendado'; position: absolute; top: -10px; right: 16px; background: var(--aurora-cyan); color: #0a0e1a; padding: 3px 10px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.tier-card h3 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 400; margin-bottom: 6px; }
+.tier-card .price { font-family: 'Fraunces', serif; font-size: 32px; margin: 12px 0 4px; }
+.tier-card .price small { font-size: 14px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; }
+.tier-card .summary { color: var(--text-dim); font-size: 14px; margin: 12px 0; line-height: 1.6; }
+.tier-card ul { list-style: none; margin-top: 14px; }
+.tier-card li { padding: 6px 0; font-size: 13px; color: var(--text-dim); border-top: 1px dashed var(--border); }
+.tier-card li:first-child { border-top: none; }
+.tier-card li b { color: var(--text); font-weight: 500; }
+
+.callouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.callout { background: var(--card); border-left: 3px solid var(--aurora-purple); padding: 16px 20px; border-radius: 0 10px 10px 0; }
+.callout.warn { border-color: var(--warn); }
+.callout.aurora { border-color: var(--aurora-green); }
+.callout h4 { font-size: 13px; margin-bottom: 6px; color: var(--text); font-weight: 600; }
+.callout p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+
+/* TIMELINE */
+.timeline { position: relative; }
+.day-row { display: grid; grid-template-columns: 100px 1fr; gap: 24px; padding: 20px 0; border-top: 1px solid var(--border); cursor: pointer; }
+.day-row:first-child { border-top: none; }
+.day-num { font-family: 'Fraunces', serif; font-size: 36px; line-height: 1; color: var(--text); font-weight: 400; }
+.day-num small { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.day-body h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400; margin-bottom: 4px; line-height: 1.2; }
+.day-route { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+.day-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+.day-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--card-hi); color: var(--text-dim); border: 1px solid var(--border); }
+.day-tag.region-italy { color: #d68a55; }
+.day-tag.region-switzerland { color: #c0d168; }
+.day-tag.region-iceland-south, .day-tag.region-iceland-west { color: var(--aurora-cyan); }
+.day-tag.region-norway-south { color: #f5b1c8; }
+.day-tag.region-norway-arctic { color: var(--aurora-pink); }
+.day-tag.region-finland-arctic { color: var(--aurora-purple); }
+.day-tag.region-sweden { color: #f5d168; }
+.day-tag.region-transit { color: var(--text-muted); }
+.day-tag.fixed { background: rgba(245,107,107,0.12); color: #f06868; border-color: rgba(245,107,107,0.3); }
+
+.aurora-bar { display: inline-flex; gap: 2px; align-items: center; }
+.aurora-bar .seg { width: 8px; height: 12px; background: var(--border); border-radius: 1px; }
+.aurora-bar .seg.lit { background: var(--aurora-green); box-shadow: 0 0 6px rgba(111,230,168,0.5); }
+
+.day-narrative { font-family: 'Fraunces', serif; font-style: italic; color: var(--text-dim); font-size: 15px; margin-top: 10px; line-height: 1.55; }
+
+.day-expanded { display: none; padding: 20px 0 0 124px; }
+.day-row.open + .day-expanded { display: block; }
+.day-expanded-grid { display: grid; grid-template-columns: 1fr 240px; gap: 28px; }
+
+.activities { display: flex; flex-direction: column; gap: 10px; }
+.activity { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; padding: 12px 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; transition: all 0.18s; }
+.activity:hover { border-color: var(--aurora-cyan); }
+.activity.checked { border-color: rgba(111,230,168,0.3); background: rgba(111,230,168,0.04); }
+.activity input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; cursor: pointer; accent-color: var(--aurora-green); }
+.activity input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.5; }
+.activity-info h5 { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.activity-info p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.activity-cost { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); white-space: nowrap; }
+.activity-cost.free { color: var(--text-muted); }
+.activity-type { display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 4px; background: var(--card-hi); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 6px; vertical-align: middle; }
+.activity-type.paid { background: rgba(94,211,224,0.15); color: var(--aurora-cyan); }
+.activity-type.premium { background: rgba(179,136,245,0.15); color: var(--aurora-purple); }
+.activity-type.free { background: rgba(111,230,168,0.12); color: var(--aurora-green); }
+.activity-type.transport { background: rgba(240,168,104,0.12); color: var(--warm); }
+.activity-type.lodging { background: rgba(245,177,200,0.12); color: #f5b1c8; }
+
+.day-side { background: var(--card-hi); border-radius: 10px; padding: 14px; font-size: 12px; }
+.day-side h6 { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 500; }
+.day-side div { margin-bottom: 12px; }
+.day-side div:last-child { margin-bottom: 0; }
+
+/* MAP */
+#mapContainer { height: 600px; border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+.leaflet-container { background: #0a0e1a !important; }
+.leaflet-popup-content-wrapper { background: var(--card); color: var(--text); border-radius: 10px; }
+.leaflet-popup-tip { background: var(--card); }
+.leaflet-popup-content { font-family: 'DM Sans', sans-serif; margin: 14px 16px; }
+.leaflet-popup-content b { font-family: 'Fraunces', serif; font-size: 16px; }
+
+.map-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 16px; padding: 14px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; font-size: 12px; }
+.map-legend-item { display: flex; gap: 6px; align-items: center; color: var(--text-dim); }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+/* COSTS */
+.cost-section { margin-bottom: 32px; }
+.cost-section h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400; margin-bottom: 14px; }
+.flight-segments { display: flex; flex-direction: column; gap: 10px; }
+.flight-row { display: grid; grid-template-columns: 1fr 110px 130px 140px; gap: 12px; align-items: center; padding: 12px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+.flight-row .label { font-size: 14px; }
+.flight-row .label small { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+.flight-row input.cost-input { width: 100%; background: var(--bg-2); border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.flight-row input.cost-input.edited { border-color: var(--aurora-cyan); background: rgba(94,211,224,0.06); }
+.flight-row .quote-btn { font-size: 11px; padding: 7px 10px; background: var(--bg-2); border: 1px solid var(--border); color: var(--aurora-cyan); border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.18s; }
+.flight-row .quote-btn:hover { border-color: var(--aurora-cyan); background: rgba(94,211,224,0.06); }
+
+.cost-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+.cost-table th { padding: 14px 18px; text-align: left; background: var(--bg-2); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; border-bottom: 1px solid var(--border); }
+.cost-table th.num { text-align: right; }
+.cost-table td { padding: 14px 18px; font-size: 14px; border-top: 1px solid var(--border); }
+.cost-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.cost-table tr.total { background: var(--bg-2); }
+.cost-table tr.total td { font-weight: 600; font-size: 15px; }
+
+/* AURORA SECTION */
+.aurora-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.aurora-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.aurora-card .city { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+.aurora-card .lat { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+.aurora-card .nights { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 12px; }
+.aurora-card .night-pill { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: var(--card-hi); color: var(--text-dim); }
+.aurora-card .score-row { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.aurora-card .score-row span { font-size: 12px; color: var(--text-muted); }
+.aurora-card .score-row b { color: var(--aurora-green); }
+
+/* LOGISTICS */
+.log-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.log-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.log-card h4 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+.log-card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 8px; }
+.log-card ul { list-style: none; }
+.log-card li { font-size: 13px; color: var(--text-dim); padding: 4px 0; }
+.log-card li::before { content: '·'; color: var(--aurora-cyan); margin-right: 8px; font-weight: bold; }
+
+/* CHECKLIST */
+.checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.checklist-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.checklist-card h4 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; margin-bottom: 14px; }
+.check-item { display: flex; gap: 10px; align-items: center; padding: 6px 0; cursor: pointer; }
+.check-item input { accent-color: var(--aurora-green); cursor: pointer; }
+.check-item label { font-size: 13px; color: var(--text-dim); cursor: pointer; user-select: none; }
+.check-item input:checked + label { color: var(--text-muted); text-decoration: line-through; }
+
+/* MISC */
+.section-divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+.expand-icon { float: right; color: var(--text-muted); font-size: 18px; transition: transform 0.2s; }
+.day-row.open .expand-icon { transform: rotate(45deg); }
+
+footer { padding: 40px 24px; text-align: center; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border); margin-top: 60px; }
+footer a { color: var(--aurora-cyan); }
+
+@media (max-width: 720px) {
+  .hero { padding: 60px 20px 40px; }
+  .panel { padding: 36px 16px; }
+  .day-row { grid-template-columns: 70px 1fr; gap: 16px; }
+  .day-num { font-size: 28px; }
+  .day-expanded { padding-left: 0; }
+  .day-expanded-grid { grid-template-columns: 1fr; gap: 16px; }
+  .flight-row { grid-template-columns: 1fr 1fr; }
+  .live-total { width: 100%; justify-content: flex-end; }
+  .tier-pill-group { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="aurora-anim"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">30 out – 21 nov 2026 · 23 dias · 6 países</div>
+    <h1 class="serif">Roteiro <em>Aurora 2026</em><br>Letícia, ao norte.</h1>
+    <p class="lede">Vinte e três dias seguindo o oval auroral de oeste a leste — Islândia, Noruega ártica, Finlândia, com layovers em Milão e Zurique nas pontas. Caça à aurora em três bases, dois dias inteiros de fiordes, uma flutuação no Oceano Ártico, huskies, renas e o Papai Noel.</p>
+    <div class="hero-meta">
+      <div><div class="lbl">Saída</div><div class="val">30 out 2026</div></div>
+      <div><div class="lbl">Retorno</div><div class="val">21 nov 2026</div></div>
+      <div><div class="lbl">Países</div><div class="val">6</div></div>
+      <div><div class="lbl">Voos</div><div class="val">9 trechos</div></div>
+      <div><div class="lbl">Aurora</div><div class="val">14 noites no oval</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky-bar">
+  <div class="sticky-inner">
+    <div class="tier-pill-group">
+      <button class="tier-pill" data-tier="1" onclick="setTier(1)">Econômico</button>
+      <button class="tier-pill active t2" data-tier="2" onclick="setTier(2)">Equilibrado</button>
+      <button class="tier-pill" data-tier="3" onclick="setTier(3)">Confortável</button>
+    </div>
+    <div class="live-total">
+      <span class="lbl">Total estimado</span>
+      <span class="val mono" id="liveTotal">R$ 0</span>
+      <span class="pax">/ 1 pax</span>
+    </div>
+  </div>
+</div>
+
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="setTab('overview', this)">Visão Geral</button>
+    <button class="tab-btn" onclick="setTab('itinerary', this)">Roteiro · 23 dias</button>
+    <button class="tab-btn" onclick="setTab('map', this)">Mapa</button>
+    <button class="tab-btn" onclick="setTab('costs', this)">Custos & Voos</button>
+    <button class="tab-btn" onclick="setTab('aurora', this)">Caça à Aurora</button>
+    <button class="tab-btn" onclick="setTab('logistics', this)">Logística</button>
+    <button class="tab-btn" onclick="setTab('checklist', this)">Pré-viagem</button>
+  </div>
+</nav>
+
+<!-- OVERVIEW -->
+<section id="panel-overview" class="panel active">
+  <div class="panel-header">
+    <h2 class="serif">Três <em>perfis</em> sobre a mesma rota</h2>
+    <p>A espinha geográfica é a mesma — o que muda entre os tiers é hospedagem, intensidade de tours pagos e o nível de premium em algumas decisões-chave (igloo de vidro vs cabine, Sky Lagoon vs Blue Lagoon, fotógrafo profissional de aurora).</p>
+  </div>
+
+  <div class="tier-grid">
+    <div class="tier-card">
+      <h3 class="serif">Econômico</h3>
+      <div class="price serif" id="tierPrice1">R$ —</div>
+      <p class="summary">Hostels e hotéis 3★, atividades essenciais (Snæfellsnes + Golden Circle + South Coast + huskies + Santa), Blue Lagoon em vez de Sky Lagoon, alimentação em mercados.</p>
+      <ul>
+        <li><b>Hospedagem</b> · Hostel/3★ · cabin APUKKA</li>
+        <li><b>Refeições</b> · mercados + 1-2 jantares fora/cidade</li>
+        <li><b>Aurora chase</b> · 4 tours guiados</li>
+        <li><b>Premium picks</b> · nenhum</li>
+      </ul>
+    </div>
+    <div class="tier-card recommended">
+      <h3 class="serif">Equilibrado</h3>
+      <div class="price serif" id="tierPrice2">R$ —</div>
+      <p class="summary">Hotéis 4★ centrais, igloo de vidro APUKKA + AITO Boutique, Sky Lagoon, Lava Cave, todas as experiências árticas (sauna, flutuação, ski), 5+ caças à aurora.</p>
+      <ul>
+        <li><b>Hospedagem</b> · 4★ + Glass Igloo APUKKA</li>
+        <li><b>Refeições</b> · mix mercado/restaurante</li>
+        <li><b>Aurora chase</b> · 6 tours + safari Sami</li>
+        <li><b>Premium picks</b> · Sky Lagoon, Pust Sauna</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <h3 class="serif">Confortável</h3>
+      <div class="price serif" id="tierPrice3">R$ —</div>
+      <p class="summary">Hotéis 4-5★ + igloos premium, todos os tours principais com fotógrafo profissional, South Coast com caverna de gelo Katla, Mt. Pilatus em Lucerna, jantares em restaurantes locais.</p>
+      <ul>
+        <li><b>Hospedagem</b> · 5★ + Glass Igloo APUKKA</li>
+        <li><b>Refeições</b> · restaurantes locais quase todos os dias</li>
+        <li><b>Aurora chase</b> · 7 tours + sessão fotográfica</li>
+        <li><b>Premium picks</b> · Katla Cave, Pilatus, Pro Aurora Photo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callouts">
+    <div class="callout warn">
+      <h4>⚠ ETIAS obrigatório a partir de 2026</h4>
+      <p>Brasileiros precisarão do ETIAS para entrar no Schengen (Itália, Suíça, Islândia, Noruega, Finlândia, Suécia). Custo €7, validade 3 anos. Pedir ANTES de viajar — em <a href="https://travel-europe.europa.eu/etias_pt" target="_blank">travel-europe.europa.eu</a>.</p>
+    </div>
+    <div class="callout warn">
+      <h4>⚠ Voo de retorno faltando</h4>
+      <p>O roteiro original termina em Zurique (21/11). O voo Zurique → São Paulo precisa ser comprado. SWISS LX 92 ou LATAM noturno são as opções clássicas. Considerado como segmento editável em "Custos & Voos".</p>
+    </div>
+    <div class="callout aurora">
+      <h4>✦ Lua nova em 09/11/2026</h4>
+      <p>Janela perfeita: a primeira semana em Tromsø coincide com lua nova (céu mais escuro, aurora mais nítida). Latitude 69°N + atividade solar de 2026 ainda alta = condições excepcionais.</p>
+    </div>
+    <div class="callout">
+      <h4>· Layover de Milão (31/10) é apertado</h4>
+      <p>Pouso 09:15 → trem (50min) → 7h efetivas no centro → trem de volta às 17h para o voo das 19:20. Dá para fazer Duomo + Galleria + Castelo + Panzerotti, mas sem espaço para improvisar.</p>
+    </div>
+    <div class="callout">
+      <h4>· Atividades fixas em Rovaniemi</h4>
+      <p>Snowmobile + Ice Fishing (17/11) e Culinary Workshop (18/11) estão marcados como "não pode mudar" na planilha original — travados como `forced` no roteiro.</p>
+    </div>
+    <div class="callout">
+      <h4>· APUKKA Glass Igloo esgota cedo</h4>
+      <p>Os igloos de vidro APUKKA (com vista do céu da cama) costumam esgotar até 10 meses antes para alta temporada de aurora. Se ainda não reservou, prioridade máxima.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="panel-itinerary" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">Roteiro · <em>23 dias</em></h2>
+    <p>Cada dia é expansível. Marque/desmarque atividades — o total recalcula em tempo real. As atividades ⚠ travadas (voos, datas fixas) não podem ser desmarcadas.</p>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<!-- MAP -->
+<section id="panel-map" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">A rota <em>desenhada</em></h2>
+    <p>De São Paulo a São Paulo, sentido horário pela Europa. Linha cheia = voo, linha tracejada = excursão de dia. Cores por país.</p>
+  </div>
+  <div id="mapContainer"></div>
+  <div class="map-legend">
+    <div class="map-legend-item"><span class="legend-dot" style="background:#d68a55"></span>Itália</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#c0d168"></span>Suíça</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#5ed3e0"></span>Islândia</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#f5b1c8"></span>Noruega</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#b388f5"></span>Finlândia</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#f5d168"></span>Suécia</div>
+    <div class="map-legend-item"><span class="legend-dot" style="background:#6fe6a8"></span>POI / atração</div>
+  </div>
+</section>
+
+<!-- COSTS -->
+<section id="panel-costs" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">Custos & <em>cotação ao vivo</em></h2>
+    <p>Valores estimados em outubro 2025 para viagem em outubro/novembro 2026. Edite os campos editáveis (voos, hospedagens-chave) com sua cotação real — o total recalcula. Botões "Cotar" abrem direto no Google Flights.</p>
+  </div>
+
+  <div class="cost-section">
+    <h3 class="serif">Voos</h3>
+    <div class="flight-segments" id="flightSegments"></div>
+  </div>
+
+  <div class="cost-section">
+    <h3 class="serif">Comparativo dos 3 tiers</h3>
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th class="num">Econômico</th>
+          <th class="num">Equilibrado</th>
+          <th class="num">Confortável</th>
+        </tr>
+      </thead>
+      <tbody id="costTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AURORA -->
+<section id="panel-aurora" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">Caça à <em>aurora boreal</em></h2>
+    <p>14 noites dentro do oval auroral, distribuídas em 3 bases estratégicas. Score de 0 a 5 por dia (latitude + escuridão + tour específico).</p>
+  </div>
+
+  <div class="aurora-grid">
+    <div class="aurora-card">
+      <div class="city serif">Reykjavík</div>
+      <div class="lat">64.15°N · Islândia</div>
+      <p style="font-size:13px;color:var(--text-dim);">5 noites na ilha. Tours saindo da capital cobrem Snæfellsnes, Golden Circle, South Coast — todos com céus escuros após o pôr do sol (~16h em novembro).</p>
+      <div class="nights">
+        <span class="night-pill">02/11</span><span class="night-pill">03/11</span><span class="night-pill">04/11</span><span class="night-pill">05/11</span><span class="night-pill">06/11</span>
+      </div>
+      <div class="score-row"><span>Probabilidade</span><b>★★★★ 4/5</b></div>
+    </div>
+    <div class="aurora-card">
+      <div class="city serif">Tromsø</div>
+      <div class="lat">69.65°N · Noruega</div>
+      <p style="font-size:13px;color:var(--text-dim);">5 noites em pleno oval. Lua nova em 09/11. Pust Sauna e Magic Ice Bar com aurora visível por janelas. Safari profissional planejado.</p>
+      <div class="nights">
+        <span class="night-pill">08/11</span><span class="night-pill">09/11</span><span class="night-pill">10/11</span><span class="night-pill">11/11</span><span class="night-pill">12/11</span>
+      </div>
+      <div class="score-row"><span>Probabilidade</span><b>★★★★★ 5/5</b></div>
+    </div>
+    <div class="aurora-card">
+      <div class="city serif">Rovaniemi (APUKKA + AITO)</div>
+      <div class="lat">66.50°N · Finlândia</div>
+      <p style="font-size:13px;color:var(--text-dim);">6 noites com Snowtrain, fotografia profissional, BBQ ao ar livre, fotógrafo @kunbelievable. Glass igloo APUKKA permite ver a aurora deitada na cama.</p>
+      <div class="nights">
+        <span class="night-pill">13/11</span><span class="night-pill">14/11</span><span class="night-pill">15/11</span><span class="night-pill">16/11</span><span class="night-pill">17/11</span><span class="night-pill">18/11</span>
+      </div>
+      <div class="score-row"><span>Probabilidade</span><b>★★★★★ 5/5</b></div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <div class="callout aurora">
+      <h4>✦ Tip: regra dos 3 dias</h4>
+      <p>Aurora visível depende de céu limpo + atividade KP ≥ 3. Em qualquer base, planeje passar pelo menos 3 noites — estatisticamente cobre as variações de clima local. Você está fazendo 5+ em cada base. Excelente.</p>
+    </div>
+    <div class="callout" style="margin-top:14px;">
+      <h4>· Apps para checar</h4>
+      <p><b>My Aurora Forecast Pro</b> (iOS/Android, melhor previsão de KP), <b>Vedur.is</b> (clima específico Islândia), <b>Yr.no</b> (clima Noruega/Finlândia). Aurora começa em ~21h-23h, picos entre 22h-02h.</p>
+    </div>
+    <div class="callout" style="margin-top:14px;">
+      <h4>· Configuração de câmera</h4>
+      <p>ISO 1600-3200 · abertura f/2.8 (ou maior) · obturador 8-15 segundos · foco manual no infinito · tripé obrigatório · bateria de reserva no bolso aquecido (frio mata bateria).</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOGISTICS -->
+<section id="panel-logistics" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">Logística <em>nórdica</em></h2>
+    <p>O essencial para a viagem rodar — burocracia, conectividade, regras locais, apps.</p>
+  </div>
+
+  <div class="log-grid">
+    <div class="log-card">
+      <h4>Documentos & vistos</h4>
+      <ul>
+        <li><b>Passaporte</b> com 6+ meses de validade</li>
+        <li><b>ETIAS</b> obrigatório (€7, 3 anos) — pedir 30+ dias antes</li>
+        <li><b>Seguro viagem Schengen</b> mínimo €30k cobertura</li>
+        <li><b>Comprovantes</b> de hospedagem e voo de retorno (alguns países pedem na entrada)</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Conectividade</h4>
+      <ul>
+        <li><b>eSIM Airalo Europe Plus</b> cobre todos os 6 países (10GB / 30 dias ~US$ 39)</li>
+        <li>Alternativa: <b>Holafly</b> ilimitado por dia</li>
+        <li>Wi-Fi de hotel é universal — eSIM cobre ônibus/tours</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Moedas e cartões</h4>
+      <ul>
+        <li><b>Itália + Finlândia</b>: Euro (€)</li>
+        <li><b>Suíça</b>: Franco Suíço (CHF) — Euro também aceito mas câmbio ruim</li>
+        <li><b>Islândia</b>: Coroa Islandesa (ISK) — quase 100% cartão</li>
+        <li><b>Noruega</b>: Coroa Norueguesa (NOK) — 100% cartão</li>
+        <li><b>Suécia</b>: Coroa Sueca (SEK) — 100% cartão</li>
+        <li>Levar Wise/Nomad em vez de dinheiro vivo. ATMs caros.</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Voos internos</h4>
+      <ul>
+        <li><b>MXP→ZRH</b>: SWISS, 1h, ~R$ 1.000-1.500</li>
+        <li><b>ZRH→KEF</b>: Icelandair / PLAY, ~3h30, ~R$ 1.200-2.000</li>
+        <li><b>KEF→OSL</b>: Icelandair / SAS, ~3h, ~R$ 800-1.500</li>
+        <li><b>OSL→TOS</b>: SAS / Norwegian, ~2h, ~R$ 600-1.200</li>
+        <li><b>TOS→RVN</b>: ⚠ Sem voo direto. Via Helsinki (Finnair) ou Oslo</li>
+        <li><b>RVN→ARN</b>: SAS / Norwegian, ~1h30, R$ 576 já cotado</li>
+        <li><b>ARN→ZRH</b>: SWISS / SAS, ~2h30, ~R$ 800-1.500</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Apps essenciais</h4>
+      <ul>
+        <li><b>Google Maps</b> + downloads offline de Tromsø e Rovaniemi</li>
+        <li><b>SL</b> (transporte Estocolmo)</li>
+        <li><b>Veður</b> (clima Islândia, oficial)</li>
+        <li><b>SafeTravel.is</b> (alertas de estrada e clima Islândia)</li>
+        <li><b>My Aurora Forecast Pro</b></li>
+        <li><b>Wolt</b> (delivery Helsinki/Estocolmo se quiser jantar no hotel)</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Hotéis confirmados</h4>
+      <ul>
+        <li><b>Radisson Oslo Airport</b> (07/11) — Gardermoen</li>
+        <li><b>APUKKA Resort</b> Glass Igloo (13-14/11)</li>
+        <li><b>AITO Boutique</b> (15-18/11) — central Rovaniemi</li>
+        <li><b>Reykjavík</b> · 5 noites · sugerido: Center Hotels Plaza, Reykjavík Konsulat, Reykjavík Marina</li>
+        <li><b>Tromsø</b> · 5 noites · sugerido: Clarion The Edge, Radisson Blu, Scandic Ishavshotel</li>
+        <li><b>Estocolmo</b> · 2 noites · sugerido: Hotel Diplomat, At Six, Scandic Continental</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Cuidados específicos</h4>
+      <ul>
+        <li><b>Reynisfjara</b>: NUNCA virar costas para o mar — sneaker waves matam</li>
+        <li><b>Dirigir Islândia</b>: precisa PID. Em novembro estradas no norte fechadas, F-roads totalmente fechadas</li>
+        <li><b>Frio extremo</b> (Tromsø/Rovaniemi): -10 a -25°C. Pele exposta congela em minutos a -20°C</li>
+        <li><b>Aurora</b>: paciência. Pode demorar 2-3h em campo gelado. Térmica boa = sem sofrimento</li>
+        <li><b>Bagagem inverno</b>: 23kg+10kg na maioria das companhias. Botas pesadas no pé, não na mala</li>
+      </ul>
+    </div>
+    <div class="log-card">
+      <h4>Pôr do sol em novembro</h4>
+      <ul>
+        <li><b>Reykjavík</b> 03-06/11: 17h-09h (~7h escuro útil)</li>
+        <li><b>Tromsø</b> 08-12/11: SOL POLAR começa 21/11 — em nov ainda há crepúsculo, mas só 4h de "dia"</li>
+        <li><b>Rovaniemi</b> 13-18/11: nascer 09:30, pôr 14:30 (~5h dia)</li>
+        <li>Implicação: tours diurnos saem cedo, aurora começa às 17h-18h em latitudes altas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="panel-checklist" class="panel">
+  <div class="panel-header">
+    <h2 class="serif">Pré-viagem <em>checklist</em></h2>
+    <p>Marque conforme for resolvendo. Estado salvo localmente.</p>
+  </div>
+  <div class="checklist-grid" id="checklistGrid"></div>
+</section>
+
+<footer>
+  Roteiro Aurora 2026 · Letícia · gerado a partir da planilha "Roteiro Oficial" (out/2025)<br>
+  Valores em BRL para 1 pax · cotação aproximada · revisar antes da compra
+</footer>
+
+<script>
+const DAYS = [
+  { n: 1, date: '30/10', wd: 'Qui', title: 'Embarque rumo à aurora', from: 'São Paulo', to: 'Em voo (GRU→MXP)', region: 'transit', km: 0, aurora: 0,
+    narrative: 'Saída de Guarulhos às 18h. Voo overnight transatlântico — começa aqui a jornada de 23 dias atrás da aurora boreal e do inverno ártico.',
+    activities: [
+      { id: 'a1_1', name: 'Voo GRU 18:00 → MXP 09:15+1', type: 'transport', cost: 0, tiers: [1,2,3], desc: 'Voo overnight São Paulo–Milão. Já considerado em "Voos".', forced: true }
+    ],
+    side: { lodging: 'Avião', meal: 'A bordo', auroraNote: 'Sem chance — em trânsito' } },
+
+  { n: 2, date: '31/10', wd: 'Sex', title: 'Layover em Milão', from: 'MXP', to: 'Zurique', region: 'italy', km: 360, aurora: 0,
+    narrative: 'Pouso em Malpensa, trem direto para o coração de Milão. Um dia para Duomo, panzerotti do Luini e o calcanhar no touro da Galleria — antes do voo da noite para Zurique.',
+    activities: [
+      { id: 'a2_1', name: 'Trem Malpensa Express → Cadorna', type: 'transport', cost: 80, tiers: [1,2,3], desc: '40-50 min · €13. Conexão direta entre o aeroporto e o centro de Milão.', forced: true },
+      { id: 'a2_2', name: 'Duomo di Milano', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Catedral gótica icônica. Subida ao terraço opcional.' },
+      { id: 'a2_3', name: 'Subida ao terraço do Duomo', type: 'paid', cost: 90, tiers: [2,3], desc: '€15 · Vista panorâmica do telhado da catedral.' },
+      { id: 'a2_4', name: 'Panzerotti do Luini', type: 'paid', cost: 30, tiers: [1,2,3], desc: 'Almoço icônico a 5 min do Duomo. Massa frita recheada.' },
+      { id: 'a2_5', name: 'Galleria Vittorio Emanuele II', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Shopping ao lado da catedral. Tradição: rodar o calcanhar no mosaico do touro para dar sorte.' },
+      { id: 'a2_6', name: 'Castelo Sforzesco', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Castelo do séc. XV, 5-10 min do Duomo.' },
+      { id: 'a2_7', name: 'Parque Sempione + Arco della Pace', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Parque atrás do castelo, com o Arco da Paz na ponta oposta.' },
+      { id: 'a2_8', name: 'Voo MXP 19:20 → ZRH 20:20', type: 'transport', cost: 0, tiers: [1,2,3], desc: '1h de voo (SWISS). Já considerado em "Voos".', forced: true },
+      { id: 'a2_9', name: 'Pernoite Zurique', type: 'lodging', cost: 1100, tiers: [1,2,3], desc: 'Hotel central. Tier 1: ~R$ 800. Tier 3: ~R$ 1.600.' }
+    ],
+    side: { lodging: 'Hotel Zurique', meal: 'Italiana + suíça', auroraNote: 'Sem chance — luminosidade urbana' } },
+
+  { n: 3, date: '01/11', wd: 'Sáb', title: 'Bate-e-volta suíço', from: 'Zurique', to: 'Zurique', region: 'switzerland', km: 200, aurora: 0,
+    narrative: 'Dia inteiro em Zurique — as melhores opções são pegar trem e fazer um bate-e-volta para Lucerna (1h, mais cinematográfica), Stein am Rhein (vila medieval) ou Rhine Falls (cachoeira mais larga da Europa).',
+    activities: [
+      { id: 'a3_1', name: 'Lucerna (bate-e-volta)', type: 'paid', cost: 350, tiers: [2,3], desc: 'Trem 1h ida + 1h volta. Lago, Kapellbrücke, Pilatus opcional. Trem ida-volta ~CHF 60.' },
+      { id: 'a3_2', name: 'Stein am Rhein', type: 'paid', cost: 240, tiers: [1], desc: 'Vila medieval com fachadas pintadas. ~1h15 de trem. ~CHF 40.' },
+      { id: 'a3_3', name: 'Rhine Falls', type: 'paid', cost: 280, tiers: [3], desc: 'Cachoeira mais larga da Europa em Schaffhausen. ~1h de trem. ~CHF 45 + barco opcional.' },
+      { id: 'a3_4', name: 'Mt. Pilatus (cog railway + cable car)', type: 'premium', cost: 800, tiers: [3], desc: 'Subida ao topo do Pilatus a partir de Lucerna. Round-trip ~CHF 130. Visual dramático.' },
+      { id: 'a3_5', name: 'Pernoite Zurique', type: 'lodging', cost: 1100, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Zurique', meal: 'Suíça', auroraNote: 'Sem chance — sul demais' } },
+
+  { n: 4, date: '02/11', wd: 'Dom', title: 'Manhã suíça → Islândia', from: 'Zurique', to: 'Reykjavík (KEF)', region: 'switzerland', km: 2700, aurora: 1,
+    narrative: 'Manhã em Zurique: subir a colina Lindenhof para a vista clássica, descer pela Bahnhofstrasse, almoçar raclette, visitar a Lindt. Voo para a Islândia no final da tarde — começa a caça à aurora.',
+    activities: [
+      { id: 'a4_1', name: 'Colina Lindenhof', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Vista panorâmica gratuita do casco antigo de Zurique.' },
+      { id: 'a4_2', name: 'Bahnhofstrasse', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Avenida principal de Zurique, vitrines de luxo + cafés.' },
+      { id: 'a4_3', name: 'Almoço de raclette', type: 'paid', cost: 280, tiers: [1,2,3], desc: 'Queijo derretido suíço tradicional. ~CHF 35-50/pessoa.' },
+      { id: 'a4_4', name: 'Lindt Home of Chocolate', type: 'paid', cost: 130, tiers: [2,3], desc: 'Museu interativo da Lindt em Kilchberg. CHF 20 · ônibus + barco.' },
+      { id: 'a4_5', name: 'Voo ZRH → KEF (tarde-noite)', type: 'transport', cost: 0, tiers: [1,2,3], desc: '~3h30 de voo. Já considerado em "Voos".', forced: true },
+      { id: 'a4_6', name: 'Pernoite Reykjavík', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Hotel central Reykjavík. Tier 1: ~R$ 700. Tier 3: ~R$ 1.400.' }
+    ],
+    side: { lodging: 'Hotel Reykjavík', meal: 'Suíça + voo', auroraNote: 'Possível em Reykjavík se chegar antes da meia-noite e céu limpo' } },
+
+  { n: 5, date: '03/11', wd: 'Seg', title: 'Snæfellsnes — Islândia em miniatura', from: 'Reykjavík', to: 'Reykjavík', region: 'iceland-west', km: 360, aurora: 4,
+    narrative: 'Tour guiado de 12 horas pela "Islândia em miniatura": Kirkjufell (a montanha de Game of Thrones), praia preta com pedras vulcânicas, vila costeira de Arnarstapi, igrejinha de madeira preta e praia onde focas tomam sol.',
+    activities: [
+      { id: 'a5_1', name: 'Tour Snæfellsnes (08-20h)', type: 'paid', cost: 790, tiers: [1,2,3], desc: '$143 · Tour guiado de dia inteiro saindo de Reykjavík. GetYourGuide.' },
+      { id: 'a5_2', name: 'Kirkjufell', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Montanha icônica de Game of Thrones + cachoeira Kirkjufellsfoss.' },
+      { id: 'a5_3', name: 'Djúpalónssandur', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Praia de areia preta com pedras vulcânicas usadas para testar força de pescadores.' },
+      { id: 'a5_4', name: 'Arnarstapi', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Vila costeira com falésias vulcânicas e arco natural Gatklettur.' },
+      { id: 'a5_5', name: 'Búðakirkja (Igreja Preta)', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Igrejinha de madeira preta isolada — uma das fotos mais clichês da Islândia.' },
+      { id: 'a5_6', name: 'Ytri Tunga (focas)', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Praia de areia dourada onde focas costumam tomar sol nas pedras.' },
+      { id: 'a5_7', name: 'Pernoite Reykjavík', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Reykjavík', meal: 'Lanches no tour', auroraNote: 'Boa — afastado de Reykjavík no caminho de volta' } },
+
+  { n: 6, date: '04/11', wd: 'Ter', title: 'Círculo Dourado', from: 'Reykjavík', to: 'Reykjavík', region: 'iceland-south', km: 250, aurora: 4,
+    narrative: 'O circuito clássico: cratera vulcânica de água azul, gêiseres em erupção a cada 5-7 minutos, Gullfoss e o azul-turquesa de Brúarfoss, e Þingvellir — encontro das placas tectônicas + local da assembleia mais antiga do mundo (930 d.C.).',
+    activities: [
+      { id: 'a6_1', name: 'Tour Golden Circle', type: 'paid', cost: 510, tiers: [1,2,3], desc: '$92.30 · Tour guiado dia inteiro. GetYourGuide.' },
+      { id: 'a6_2', name: 'Kerið Crater', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Cratera vulcânica com lago azul-turquesa.' },
+      { id: 'a6_3', name: 'Geysir', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Strokkur entra em erupção a cada 5-7 min, jorrando até 30m.' },
+      { id: 'a6_4', name: 'Gullfoss', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Cachoeira em dois níveis, conhecida como "cachoeira dourada".' },
+      { id: 'a6_5', name: 'Brúarfoss', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Cachoeira de água azul-turquesa improvável.' },
+      { id: 'a6_6', name: 'Þingvellir', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Parque Nacional UNESCO. Encontro das placas tectônicas + assembleia islandesa de 930 d.C.' },
+      { id: 'a6_7', name: 'Pernoite Reykjavík', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Reykjavík', meal: 'Jantar Reykjavík', auroraNote: 'Excelente — Þingvellir é dark-sky' } },
+
+  { n: 7, date: '05/11', wd: 'Qua', title: 'Costa Sul + cavernas', from: 'Reykjavík', to: 'Reykjavík', region: 'iceland-south', km: 380, aurora: 5,
+    narrative: 'Costa sul: cachoeiras pelas quais você pode caminhar por trás (Seljalandsfoss), arco de pedra Dyrhólaey, praia de areia preta com colunas de basalto e a vilinha de Vík. Tier 3 inclui caverna de gelo Katla.',
+    activities: [
+      { id: 'a7_1', name: 'Tour Costa Sul (clássico)', type: 'paid', cost: 690, tiers: [1,2], desc: '$125 · Tour guiado dia inteiro. GetYourGuide.' },
+      { id: 'a7_2', name: 'Tour Costa Sul + Caverna Katla', type: 'premium', cost: 1610, tiers: [3], desc: '$292 · Mesmo tour + visita à caverna de gelo natural Katla.' },
+      { id: 'a7_3', name: 'Seljalandsfoss', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Cachoeira mais conhecida — pode caminhar por trás (com impermeável).' },
+      { id: 'a7_4', name: 'Skógafoss', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Uma das maiores cachoeiras. 60m de queda, 25m de largura.' },
+      { id: 'a7_5', name: 'Dyrhólaey', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Arco rochoso natural com vista panorâmica da costa.' },
+      { id: 'a7_6', name: 'Reynisfjara', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Praia de areia preta com colunas de basalto. ⚠ CUIDADO com sneaker waves.' },
+      { id: 'a7_7', name: 'Vík í Mýrdal', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Vila no extremo sul. Igrejinha vermelha icônica.' },
+      { id: 'a7_8', name: 'Pernoite Reykjavík', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Reykjavík', meal: 'Lanches no tour', auroraNote: 'Excelente — costa sul tem céus mais limpos' } },
+
+  { n: 8, date: '06/11', wd: 'Qui', title: 'Reykjavík + caça à aurora', from: 'Reykjavík', to: 'Reykjavík', region: 'iceland-south', km: 80, aurora: 5,
+    narrative: 'Manhã: termal — Sky Lagoon (mais elegante, ritual de 7 etapas) ou Blue Lagoon (clássico, máscara facial). Tarde: caverna de lava + ícones de Reykjavík. Noite: caça à aurora.',
+    activities: [
+      { id: 'a8_1', name: 'Sky Lagoon (ritual de 7 etapas)', type: 'premium', cost: 610, tiers: [2,3], desc: 'R$ 610 · Ritual nórdico de 7 etapas. Pode molhar o cabelo. Considerado superior ao Blue Lagoon.' },
+      { id: 'a8_2', name: 'Blue Lagoon (alternativa)', type: 'paid', cost: 810, tiers: [1], desc: '$147 · Águas a 38°C, máscara facial inclusa. Não pode molhar o cabelo.' },
+      { id: 'a8_3', name: 'Lava Cave Raufarhólshellir', type: 'paid', cost: 850, tiers: [2,3], desc: '$155 · 3 horas. Tour pela caverna de lava com formações coloridas.' },
+      { id: 'a8_4', name: 'Hallgrímskirkja', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Igreja modernista que parece basalto. Subida na torre opcional.' },
+      { id: 'a8_5', name: 'Rainbow Street', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Skólavörðustígur — rua pintada com arco-íris levando à Hallgrímskirkja.' },
+      { id: 'a8_6', name: 'Phallological Museum', type: 'paid', cost: 130, tiers: [1,2,3], desc: 'Museu do Pênis. ~R$ 130. Curiosidade local.' },
+      { id: 'a8_7', name: 'Caça à Aurora (Reykjavík)', type: 'paid', cost: 410, tiers: [1,2,3], desc: '$74 · Tour de ônibus para fora da cidade com chocolate quente.' },
+      { id: 'a8_8', name: 'Pernoite Reykjavík', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Última noite em Reykjavík.' }
+    ],
+    side: { lodging: 'Hotel Reykjavík', meal: 'Jantar Reykjavík', auroraNote: 'Excelente — tour específico de aurora à noite' } },
+
+  { n: 9, date: '07/11', wd: 'Sex', title: 'Reykjavík → Oslo', from: 'KEF', to: 'Oslo', region: 'norway-south', km: 1900, aurora: 2,
+    narrative: 'Voo cedo (07:50) para Oslo, chegando 11:35. Tarde: Munch Museum para ver O Grito (versão original em pastel). Pernoite no Radisson do aeroporto para o voo cedo de amanhã para Tromsø.',
+    activities: [
+      { id: 'a9_1', name: 'Voo KEF 07:50 → OSL 11:35', type: 'transport', cost: 0, tiers: [1,2,3], desc: 'Já considerado em "Voos".', forced: true },
+      { id: 'a9_2', name: 'Munch Museum (O Grito)', type: 'paid', cost: 130, tiers: [1,2,3], desc: 'NOK 180. Acervo de Edvard Munch incluindo O Grito. Bjørvika, à beira-mar.' },
+      { id: 'a9_3', name: 'Pernoite Radisson Airport', type: 'lodging', cost: 850, tiers: [1,2,3], desc: 'Próximo ao aeroporto Gardermoen. Tier 1: ~R$ 600. Tier 3: ~R$ 1.200.' }
+    ],
+    side: { lodging: 'Radisson OSL Airport', meal: 'Jantar no hotel', auroraNote: 'Possível em Oslo, mas latitude baixa' } },
+
+  { n: 10, date: '08/11', wd: 'Sáb', title: 'Chegada a Tromsø', from: 'Oslo', to: 'Tromsø', region: 'norway-arctic', km: 1150, aurora: 5,
+    narrative: 'Voo cedo para Tromsø, "Paris do Norte" e capital do Ártico. Tarde inteira: McDonald\'s mais ao norte do mundo, Smallest Bar, biblioteca, porto, teleférico Fjellheisen + Catedral Ártica iluminada à noite.',
+    activities: [
+      { id: 'a10_1', name: 'Voo OSL 07:50 → TOS 09:50', type: 'transport', cost: 0, tiers: [1,2,3], desc: 'Já considerado em "Voos".', forced: true },
+      { id: 'a10_2', name: 'McDonald\'s mais ao norte do mundo', type: 'paid', cost: 50, tiers: [1,2,3], desc: 'Almoço-curiosidade. Pode pedir certificado.' },
+      { id: 'a10_3', name: 'Smallest Bar in Tromsø', type: 'paid', cost: 80, tiers: [1,2,3], desc: 'Bar minúsculo, 3-4 pessoas por vez. Cerveja artesanal local.' },
+      { id: 'a10_4', name: 'Biblioteca + Porto', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Biblioteca pública com arquitetura curva + caminhada pelo porto.' },
+      { id: 'a10_5', name: 'Fjellheisen Cable Car', type: 'paid', cost: 220, tiers: [1,2,3], desc: 'NOK 295. Vista panorâmica de Tromsø do Storsteinen.' },
+      { id: 'a10_6', name: 'Arctic Cathedral', type: 'paid', cost: 70, tiers: [1,2,3], desc: 'NOK 80. Catedral modernista que parece um iceberg.' },
+      { id: 'a10_7', name: 'Ølhallen (pub mais antigo)', type: 'paid', cost: 100, tiers: [2,3], desc: 'Pub histórico (1928) da cervejaria Mack — a mais ao norte do mundo.' },
+      { id: 'a10_8', name: 'Polaria + Ice to Meet You', type: 'paid', cost: 180, tiers: [1,2,3], desc: 'NOK 220. Aquário ártico com alimentação das focas.' },
+      { id: 'a10_9', name: 'Visitor Center (certificado)', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Certificado de cruzar o Círculo Polar Ártico.' },
+      { id: 'a10_10', name: 'Pernoite Tromsø', type: 'lodging', cost: 1300, tiers: [1,2,3], desc: 'Hotel central. Alta temporada. Tier 1: ~R$ 900. Tier 3: ~R$ 1.900.' }
+    ],
+    side: { lodging: 'Hotel Tromsø', meal: 'McDonald\'s ou local', auroraNote: 'Excelente — Tromsø em pleno oval auroral' } },
+
+  { n: 11, date: '09/11', wd: 'Dom', title: 'Cultura Sami + caça à aurora', from: 'Tromsø', to: 'Tromsø', region: 'norway-arctic', km: 60, aurora: 5,
+    narrative: 'Dia dedicado à cultura Sami — povo indígena do extremo norte da Escandinávia. Alimentar renas, ouvir joik, almoçar bidos numa tenda lavvu. Noite: safari de aurora com guia profissional. Lua nova = condições ideais.',
+    activities: [
+      { id: 'a11_1', name: 'Experiência Sami', type: 'paid', cost: 800, tiers: [1,2,3], desc: 'Tour cultural Sami. Inclui alimentação de renas + almoço tradicional. GetYourGuide.' },
+      { id: 'a11_2', name: 'Safari de Aurora', type: 'paid', cost: 750, tiers: [1,2,3], desc: 'Safari de ônibus para fora da cidade caçando céus limpos. GetYourGuide.' },
+      { id: 'a11_3', name: 'Pernoite Tromsø', type: 'lodging', cost: 1300, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Tromsø', meal: 'Bidos (almoço Sami)', auroraNote: 'Pico — safari específico + lua nova' } },
+
+  { n: 12, date: '10/11', wd: 'Seg', title: 'Fiordes + Sommarøy', from: 'Tromsø', to: 'Tromsø', region: 'norway-arctic', km: 130, aurora: 4,
+    narrative: 'Excursão pelos fiordes ao redor de Tromsø — barco em águas calmas com montanhas afiadas, ilhas de Sommarøy (vila pesqueira com praias caribenhas em água gélida), piquenique de salmão a bordo.',
+    activities: [
+      { id: 'a12_1', name: 'Tour Fiordes + Sommarøy', type: 'paid', cost: 950, tiers: [1,2,3], desc: 'Excursão de barco/ônibus pelos fiordes com piquenique de salmão.' },
+      { id: 'a12_2', name: 'Pernoite Tromsø', type: 'lodging', cost: 1300, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Tromsø', meal: 'Piquenique salmão', auroraNote: 'Boa — possível ver da janela' } },
+
+  { n: 13, date: '11/11', wd: 'Ter', title: 'Magic Ice Bar + Sauna', from: 'Tromsø', to: 'Tromsø', region: 'norway-arctic', km: 30, aurora: 4,
+    narrative: 'Dia livre para explorar a cidade no ritmo. À noite: Magic Ice Bar (bar inteiro de gelo com casaco térmico de empréstimo) + Pust Sauna (sauna tradicional com vista do porto, alternada com mergulho gelado).',
+    activities: [
+      { id: 'a13_1', name: 'Magic Ice Bar', type: 'paid', cost: 350, tiers: [1,2,3], desc: 'Bar de gelo com bebida de boas-vindas. ~NOK 295.' },
+      { id: 'a13_2', name: 'Pust Sauna Tromsø', type: 'paid', cost: 280, tiers: [1,2,3], desc: 'NOK 350. Sauna nórdica com mergulho gelado. pust.io.' },
+      { id: 'a13_3', name: 'Pernoite Tromsø', type: 'lodging', cost: 1300, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Tromsø', meal: 'Restaurante local', auroraNote: 'Boa — possível ver durante a sauna' } },
+
+  { n: 14, date: '12/11', wd: 'Qua', title: 'Flutuação no Ártico + ski', from: 'Tromsø', to: 'Tromsø', region: 'norway-arctic', km: 40, aurora: 4,
+    narrative: 'Manhã: flutuação no Oceano Ártico com macacão térmico que isola completamente — você fica deitado na água gelada como num bóia, com snacks e bebidas quentes. Tarde: curso de ski de fundo (cross-country) com guia.',
+    activities: [
+      { id: 'a14_1', name: 'Flutuação no Oceano Ártico', type: 'paid', cost: 1100, tiers: [1,2,3], desc: '3h30 com macacão térmico, snacks e bebidas. GetYourGuide.' },
+      { id: 'a14_2', name: 'Curso de Ski de Fundo', type: 'paid', cost: 850, tiers: [2,3], desc: '2h30 guiado. Iniciantes bem-vindos.' },
+      { id: 'a14_3', name: 'Pernoite Tromsø', type: 'lodging', cost: 1300, tiers: [1,2,3], desc: 'Última noite em Tromsø.' }
+    ],
+    side: { lodging: 'Hotel Tromsø', meal: 'Restaurante local', auroraNote: 'Boa — última noite em Tromsø' } },
+
+  { n: 15, date: '13/11', wd: 'Qui', title: 'Tromsø → Rovaniemi (APUKKA)', from: 'Tromsø', to: 'Rovaniemi', region: 'finland-arctic', km: 320, aurora: 5,
+    narrative: 'Voo de Tromsø para Rovaniemi (capital oficial do Papai Noel). Hospedagem no APUKKA Resort — igloos de vidro com vista do céu. À noite: Snowtrain de aurora boreal.',
+    activities: [
+      { id: 'a15_1', name: 'Voo TOS 10:25 → RVN 12:35', type: 'transport', cost: 0, tiers: [1,2,3], desc: 'Provavelmente via Helsinki (Finnair). Já em "Voos".', forced: true },
+      { id: 'a15_2', name: 'Snowtrain Northern Lights', type: 'paid', cost: 670, tiers: [1,2,3], desc: '€112 · 20:30-23:30. Trem para área escura caçando aurora.' },
+      { id: 'a15_3', name: 'Pernoite APUKKA Glass Igloo', type: 'lodging', cost: 2300, tiers: [2,3], desc: 'Igloo de vidro com vista do céu. ~€350-450/noite. Ver aurora da cama.' },
+      { id: 'a15_4', name: 'Pernoite cabin (Tier 1)', type: 'lodging', cost: 1200, tiers: [1], desc: 'APUKKA cabin standard ou hotel central.' }
+    ],
+    side: { lodging: 'APUKKA Glass Igloo', meal: 'Restaurante APUKKA', auroraNote: 'Pico — igloo de vidro feito para isso' } },
+
+  { n: 16, date: '14/11', wd: 'Sex', title: 'Husky + renas + sauna no lago', from: 'Rovaniemi', to: 'Rovaniemi', region: 'finland-arctic', km: 50, aurora: 5,
+    narrative: 'Dia dos clássicos finlandeses: trenó de huskies pela floresta nevada de manhã, almoço com renas + entregar carta para o Santa, sauna à beira do lago à tarde, caça profissional de aurora à noite (@kunbelievable).',
+    activities: [
+      { id: 'a16_1', name: 'Early Winter Husky Sled Ride', type: 'paid', cost: 1080, tiers: [1,2,3], desc: '€179 · 10:00-11:30. Trenó de huskies. APUKKA.' },
+      { id: 'a16_2', name: 'Reindeer Experience', type: 'paid', cost: 960, tiers: [1,2,3], desc: '€159 · 13:00-14:30 ou 14:00. Inclui mandar carta. APUKKA.' },
+      { id: 'a16_3', name: 'Lakeside Sauna', type: 'paid', cost: 720, tiers: [2,3], desc: '€119 · 12:00-13:30. Sauna finlandesa à beira do lago.' },
+      { id: 'a16_4', name: 'Caça à Aurora com profissional', type: 'paid', cost: 950, tiers: [2,3], desc: 'Tour com fotógrafo profissional — recebe fotos editadas. Checar @kunbelievable.' },
+      { id: 'a16_5', name: 'Pernoite APUKKA', type: 'lodging', cost: 2300, tiers: [2,3], desc: 'Glass igloo APUKKA.' },
+      { id: 'a16_6', name: 'Pernoite cabin (Tier 1)', type: 'lodging', cost: 1200, tiers: [1], desc: 'Cabin standard.' }
+    ],
+    side: { lodging: 'APUKKA', meal: 'Restaurante APUKKA', auroraNote: 'Pico — caça com profissional' } },
+
+  { n: 17, date: '15/11', wd: 'Sáb', title: 'AITO — husky, renas, lake float', from: 'Rovaniemi', to: 'Rovaniemi', region: 'finland-arctic', km: 30, aurora: 4,
+    narrative: 'Mudança para o AITO Boutique Hotel. Manhã: husky ride (⚠ checar disponibilidade). Tarde: caminhada com renas. Noite: flutuação no lago congelado.',
+    activities: [
+      { id: 'a17_1', name: 'Husky Ride matinal', type: 'paid', cost: 1020, tiers: [1,2,3], desc: '€169 · 08:00-08:30. ⚠ CHECAR — site indica 01/12+ mas há vagas em nov.' },
+      { id: 'a17_2', name: 'Reindeer Walk', type: 'paid', cost: 840, tiers: [1,2,3], desc: '€139 · 13:00-14:30.' },
+      { id: 'a17_3', name: 'Lake Floating', type: 'paid', cost: 840, tiers: [1,2,3], desc: '€139 · 20:00-21:30. Flutuação em lago congelado.' },
+      { id: 'a17_4', name: 'Pernoite AITO', type: 'lodging', cost: 1500, tiers: [2,3], desc: 'AITO Boutique Hotel. ~€220-280/noite.' },
+      { id: 'a17_5', name: 'Pernoite hotel central (Tier 1)', type: 'lodging', cost: 800, tiers: [1], desc: 'Hotel 3★ no centro.' }
+    ],
+    side: { lodging: 'AITO', meal: 'Restaurante AITO', auroraNote: 'Boa — possível durante o lake float' } },
+
+  { n: 18, date: '16/11', wd: 'Dom', title: 'Santa Klaus Village + foto aurora', from: 'Rovaniemi', to: 'Rovaniemi', region: 'finland-arctic', km: 20, aurora: 5,
+    narrative: 'Manhã/tarde: Santa Klaus Village — vila inteira temática do Papai Noel, em cima do Círculo Polar Ártico (linha pintada no chão). Encontrar o Santa, mandar carta com selo oficial. Noite: tour de aurora com fotógrafo (4h).',
+    activities: [
+      { id: 'a18_1', name: 'Santa Klaus Village', type: 'paid', cost: 1020, tiers: [1,2,3], desc: '€169 · 5,5h, 09:00-15:00. Inclui transporte. Encontro com o Santa, certificado.' },
+      { id: 'a18_2', name: 'Northern Lights Photo Excursion', type: 'paid', cost: 1190, tiers: [1,2,3], desc: '€199 · 20:00-00:00 (4h). Tour com fotógrafo, recebe fotos.' },
+      { id: 'a18_3', name: 'Pernoite AITO', type: 'lodging', cost: 1500, tiers: [2,3], desc: 'Mesma hospedagem.' },
+      { id: 'a18_4', name: 'Pernoite hotel central (Tier 1)', type: 'lodging', cost: 800, tiers: [1], desc: 'Hotel 3★ no centro.' }
+    ],
+    side: { lodging: 'AITO', meal: 'Restaurante local', auroraNote: 'Pico — tour específico com fotos' } },
+
+  { n: 19, date: '17/11', wd: 'Seg', title: 'Snowmobile + aurora photo', isFixed: true, from: 'Rovaniemi', to: 'Rovaniemi', region: 'finland-arctic', km: 80, aurora: 5,
+    narrative: 'DATAS FIXAS — não pode mudar. Manhã: snowmobile + ice fishing (pescar perfurando o gelo). Noite: tour de aurora com fotos (4h).',
+    activities: [
+      { id: 'a19_1', name: 'Snowmobile + Ice Fishing Pack', type: 'paid', cost: 1430, tiers: [1,2,3], desc: '€239 · 10:30-13:30. ⚠ DATA FIXA.', forced: true },
+      { id: 'a19_2', name: 'Northern Lights Photo Excursion', type: 'paid', cost: 1190, tiers: [1,2,3], desc: '€199 · 20:00-00:00. ⚠ DATA FIXA.', forced: true },
+      { id: 'a19_3', name: 'Pernoite AITO', type: 'lodging', cost: 1500, tiers: [2,3], desc: 'Mesma hospedagem.' },
+      { id: 'a19_4', name: 'Pernoite hotel central (Tier 1)', type: 'lodging', cost: 800, tiers: [1], desc: 'Hotel 3★ no centro.' }
+    ],
+    side: { lodging: 'AITO', meal: 'Almoço pós-pesca', auroraNote: 'Pico — fotos no tour' } },
+
+  { n: 20, date: '18/11', wd: 'Ter', title: 'Workshop culinário + aurora BBQ', isFixed: true, from: 'Rovaniemi', to: 'Rovaniemi', region: 'finland-arctic', km: 30, aurora: 4,
+    narrative: 'DATAS FIXAS. Manhã: workshop de culinária finlandesa (você cozinha pratos tradicionais). Noite: tour de aurora com BBQ ao ar livre (3h).',
+    activities: [
+      { id: 'a20_1', name: 'Culinary Workshop', type: 'paid', cost: 1020, tiers: [1,2,3], desc: '€169 · 10:30-12:30. ⚠ DATA FIXA.', forced: true },
+      { id: 'a20_2', name: 'Aurora Excursion BBQ', type: 'paid', cost: 590, tiers: [1,2,3], desc: '€98 · 20:00-23:00 (3h). BBQ ao ar livre. ⚠ DATA FIXA.', forced: true },
+      { id: 'a20_3', name: 'Pernoite AITO', type: 'lodging', cost: 1500, tiers: [2,3], desc: 'Última noite em Rovaniemi.' },
+      { id: 'a20_4', name: 'Pernoite hotel central (Tier 1)', type: 'lodging', cost: 800, tiers: [1], desc: 'Hotel 3★ no centro.' }
+    ],
+    side: { lodging: 'AITO', meal: 'Workshop + BBQ', auroraNote: 'Boa — BBQ ao ar livre durante tour' } },
+
+  { n: 21, date: '19/11', wd: 'Qua', title: 'Rovaniemi → Estocolmo', from: 'Rovaniemi', to: 'Estocolmo', region: 'sweden', km: 1100, aurora: 1,
+    narrative: 'Voo madrugada (05:20) para Estocolmo. Tarde livre — caminhar por Gamla Stan (cidade velha medieval), ver Vasa Museum (navio do séc. XVII intacto), curtir o cheiro de canela das padarias.',
+    activities: [
+      { id: 'a21_1', name: 'Voo RVN 05:20 → ARN 07:40', type: 'transport', cost: 576, tiers: [1,2,3], desc: 'R$ 576 já cotado. Já considerado em "Voos".', forced: true },
+      { id: 'a21_2', name: 'Gamla Stan (cidade velha)', type: 'free', cost: 0, tiers: [1,2,3], desc: 'Centro medieval. Ruas estreitas, palácio real, Stortorget.' },
+      { id: 'a21_3', name: 'Vasa Museum', type: 'paid', cost: 130, tiers: [1,2,3], desc: 'SEK 220. Navio de guerra do séc. XVII recuperado intacto.' },
+      { id: 'a21_4', name: 'Fika tradicional', type: 'paid', cost: 60, tiers: [1,2,3], desc: 'Café + canelado (kanelbulle) em padaria sueca.' },
+      { id: 'a21_5', name: 'Pernoite Estocolmo', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Hotel central. Tier 1: ~R$ 700. Tier 3: ~R$ 1.400.' }
+    ],
+    side: { lodging: 'Hotel Estocolmo', meal: 'Sueca tradicional', auroraNote: 'Mínima — Estocolmo está fora do oval' } },
+
+  { n: 22, date: '20/11', wd: 'Qui', title: 'Bate-e-volta de trem', from: 'Estocolmo', to: 'Estocolmo', region: 'sweden', km: 100, aurora: 0,
+    narrative: 'Bate-e-volta de trem: Sigtuna (vila viking de 980 d.C.), Uppsala (cidade universitária com catedral gótica), ou Mariefred (perto de Läggesta) com castelo Gripsholm à beira do lago.',
+    activities: [
+      { id: 'a22_1', name: 'Sigtuna', type: 'paid', cost: 130, tiers: [1,3], desc: 'Cidade mais antiga da Suécia (980 d.C.). ~45 min trem + ônibus.' },
+      { id: 'a22_2', name: 'Uppsala', type: 'paid', cost: 160, tiers: [2,3], desc: '~40 min de trem. Catedral, universidade, túmulos vikings de Old Uppsala.' },
+      { id: 'a22_3', name: 'Mariefred + Castelo Gripsholm', type: 'paid', cost: 200, tiers: [3], desc: '~1h até Läggesta + ônibus a Mariefred. Castelo do séc. XVI à beira do lago.' },
+      { id: 'a22_4', name: 'Pernoite Estocolmo', type: 'lodging', cost: 950, tiers: [1,2,3], desc: 'Mesma hospedagem.' }
+    ],
+    side: { lodging: 'Hotel Estocolmo', meal: 'Almoço fora + jantar Estocolmo', auroraNote: 'Sem chance' } },
+
+  { n: 23, date: '21/11', wd: 'Sex', title: 'Estocolmo → Zurique → SP', from: 'Estocolmo', to: 'Zurique → São Paulo', region: 'transit', km: 11000, aurora: 0,
+    narrative: 'Voo cedo para Zurique. Tarde de fechamento: Lindt Home of Chocolate (museu + degustação) antes do voo de retorno para São Paulo. ⚠ Voo Zurique → GRU precisa ser confirmado.',
+    activities: [
+      { id: 'a23_1', name: 'Voo ARN 06:10 → ZRH 08:35', type: 'transport', cost: 0, tiers: [1,2,3], desc: 'Já considerado em "Voos".', forced: true },
+      { id: 'a23_2', name: 'Lindt Home of Chocolate', type: 'paid', cost: 130, tiers: [1,2,3], desc: 'CHF 20. Museu interativo da Lindt, degustação inclusa.' },
+      { id: 'a23_3', name: 'Voo ZRH → GRU', type: 'transport', cost: 0, tiers: [1,2,3], desc: '⚠ Voo de retorno São Paulo a comprar. Já considerado em "Voos".', forced: true }
+    ],
+    side: { lodging: 'Avião', meal: 'A bordo', auroraNote: 'Sem chance' } }
+];
+
+const COSTS = {
+  1: {
+    flights: { label: 'Voos (todos os 9 trechos)', value: 16800, note: '8 trechos europeus + 1 trans-Atlântico ida/volta econômico', segments: [
+      { name: 'GRU → MXP (trans-Atlântico)', from: 'GRU', to: 'MXP', date: '2026-10-30', value: 5500 },
+      { name: 'MXP → ZRH', from: 'MXP', to: 'ZRH', date: '2026-10-31', value: 900 },
+      { name: 'ZRH → KEF', from: 'ZRH', to: 'KEF', date: '2026-11-02', value: 1400 },
+      { name: 'KEF → OSL', from: 'KEF', to: 'OSL', date: '2026-11-07', value: 1100 },
+      { name: 'OSL → TOS', from: 'OSL', to: 'TOS', date: '2026-11-08', value: 800 },
+      { name: 'TOS → RVN (via HEL)', from: 'TOS', to: 'RVN', date: '2026-11-13', value: 1200 },
+      { name: 'RVN → ARN', from: 'RVN', to: 'ARN', date: '2026-11-19', value: 576 },
+      { name: 'ARN → ZRH', from: 'ARN', to: 'ZRH', date: '2026-11-21', value: 900 },
+      { name: 'ZRH → GRU (retorno trans-Atlântico) ⚠ a comprar', from: 'ZRH', to: 'GRU', date: '2026-11-21', value: 4500 }
+    ]},
+    food: { label: 'Refeições (mercados + lanches)', value: 4600, note: '~R$ 200/dia × 23 dias' },
+    transport_local: { label: 'Transporte local (metrô, trens, taxis)', value: 1500, note: 'Trens Suíça/Suécia, Tromsø local, Reykjavík bus' },
+    misc: { label: 'Buffer (8% imprevistos)', value: 2200, note: 'Câmbio, gorjetas, esquecimentos' },
+    insurance: { label: 'Seguro Schengen + ETIAS', value: 800, note: '€30k cobertura + ETIAS €7' }
+  },
+  2: {
+    flights: { label: 'Voos (todos os 9 trechos)', value: 19500, note: '8 trechos europeus + 1 trans-Atlântico premium econômico', segments: [
+      { name: 'GRU → MXP (trans-Atlântico)', from: 'GRU', to: 'MXP', date: '2026-10-30', value: 6800 },
+      { name: 'MXP → ZRH', from: 'MXP', to: 'ZRH', date: '2026-10-31', value: 1100 },
+      { name: 'ZRH → KEF', from: 'ZRH', to: 'KEF', date: '2026-11-02', value: 1700 },
+      { name: 'KEF → OSL', from: 'KEF', to: 'OSL', date: '2026-11-07', value: 1300 },
+      { name: 'OSL → TOS', from: 'OSL', to: 'TOS', date: '2026-11-08', value: 950 },
+      { name: 'TOS → RVN (via HEL)', from: 'TOS', to: 'RVN', date: '2026-11-13', value: 1400 },
+      { name: 'RVN → ARN', from: 'RVN', to: 'ARN', date: '2026-11-19', value: 576 },
+      { name: 'ARN → ZRH', from: 'ARN', to: 'ZRH', date: '2026-11-21', value: 1100 },
+      { name: 'ZRH → GRU (retorno) ⚠ a comprar', from: 'ZRH', to: 'GRU', date: '2026-11-21', value: 4574 }
+    ]},
+    food: { label: 'Refeições (mix mercado/restaurante)', value: 8050, note: '~R$ 350/dia × 23 dias' },
+    transport_local: { label: 'Transporte local', value: 2000, note: 'Mais Uber/táxi nas cidades' },
+    misc: { label: 'Buffer (8% imprevistos)', value: 3500, note: 'Câmbio, gorjetas, extras' },
+    insurance: { label: 'Seguro premium + ETIAS', value: 1200, note: '€60k cobertura + ETIAS' }
+  },
+  3: {
+    flights: { label: 'Voos (todos os 9 trechos)', value: 28500, note: '8 trechos europeus + 1 trans-Atlântico business no retorno', segments: [
+      { name: 'GRU → MXP (trans-Atlântico)', from: 'GRU', to: 'MXP', date: '2026-10-30', value: 8200 },
+      { name: 'MXP → ZRH', from: 'MXP', to: 'ZRH', date: '2026-10-31', value: 1400 },
+      { name: 'ZRH → KEF', from: 'ZRH', to: 'KEF', date: '2026-11-02', value: 2100 },
+      { name: 'KEF → OSL', from: 'KEF', to: 'OSL', date: '2026-11-07', value: 1600 },
+      { name: 'OSL → TOS', from: 'OSL', to: 'TOS', date: '2026-11-08', value: 1200 },
+      { name: 'TOS → RVN (via HEL)', from: 'TOS', to: 'RVN', date: '2026-11-13', value: 1700 },
+      { name: 'RVN → ARN', from: 'RVN', to: 'ARN', date: '2026-11-19', value: 950 },
+      { name: 'ARN → ZRH', from: 'ARN', to: 'ZRH', date: '2026-11-21', value: 1400 },
+      { name: 'ZRH → GRU (Business) ⚠ a comprar', from: 'ZRH', to: 'GRU', date: '2026-11-21', value: 9950 }
+    ]},
+    food: { label: 'Refeições (restaurantes locais)', value: 11500, note: '~R$ 500/dia × 23 dias' },
+    transport_local: { label: 'Transporte local + privativos', value: 3500, note: 'Privativos + táxis' },
+    misc: { label: 'Buffer (10% imprevistos)', value: 5500, note: 'Folga maior para premium' },
+    insurance: { label: 'Seguro premium + ETIAS', value: 1500, note: '€100k cobertura + ETIAS' }
+  }
+};
+
+const CITIES_MAP = [
+  { day: 1, name: 'São Paulo (GRU)', country: 'BR', coord: [-23.4356, -46.4731], type: 'origin' },
+  { day: 2, name: 'Milão (Duomo)', country: 'italy', coord: [45.4642, 9.1900], type: 'overnight' },
+  { day: 2, name: 'Zurique', country: 'switzerland', coord: [47.3769, 8.5417], type: 'overnight' },
+  { day: 5, name: 'Reykjavík', country: 'iceland', coord: [64.1466, -21.9426], type: 'overnight' },
+  { day: 5, name: 'Kirkjufell (Snæfellsnes)', country: 'iceland', coord: [64.9425, -23.3066], type: 'poi' },
+  { day: 6, name: 'Geysir (Golden Circle)', country: 'iceland', coord: [64.3104, -20.3022], type: 'poi' },
+  { day: 7, name: 'Vík (South Coast)', country: 'iceland', coord: [63.4194, -19.0066], type: 'poi' },
+  { day: 9, name: 'Oslo', country: 'norway', coord: [59.9139, 10.7522], type: 'overnight' },
+  { day: 10, name: 'Tromsø', country: 'norway-arctic', coord: [69.6492, 18.9553], type: 'overnight' },
+  { day: 12, name: 'Sommarøy', country: 'norway-arctic', coord: [69.6378, 18.0142], type: 'poi' },
+  { day: 15, name: 'Rovaniemi (APUKKA)', country: 'finland', coord: [66.5039, 25.7294], type: 'overnight' },
+  { day: 21, name: 'Estocolmo', country: 'sweden', coord: [59.3293, 18.0686], type: 'overnight' }
+];
+
+const COUNTRY_COLORS = {
+  'BR': '#888888',
+  'italy': '#d68a55',
+  'switzerland': '#c0d168',
+  'iceland': '#5ed3e0',
+  'norway': '#f5b1c8',
+  'norway-arctic': '#f08fc7',
+  'finland': '#b388f5',
+  'sweden': '#f5d168'
+};
+
+const CHECKLIST = [
+  { cat: 'Documentos', items: ['Passaporte com 6+ meses validade', 'ETIAS aprovado (€7)', 'Seguro viagem Schengen (€30k+)', 'Comprovantes de hospedagem impressos', 'Comprovantes de voo de volta', 'Cópia do passaporte na nuvem (Google Drive)', 'Contato emergencial salvo offline', 'Cartão de vacina (não obrigatório, mas útil)'] },
+  { cat: 'Roupa - base ártica', items: ['Camadas térmicas inferior + superior (Merino)', '2-3 segundas camadas (fleece/lã)', 'Casaco de neve impermeável (-20°C)', 'Calça de neve impermeável', 'Botas de neve impermeáveis (até joelho)', 'Meias térmicas de lã (5+ pares)', 'Luvas de neve impermeáveis (2 pares)', 'Sub-luvas finas (toque touchscreen)', 'Touca de lã + balaclava', 'Cachecol/buff de pescoço', 'Hand warmers descartáveis (caixa de 10)'] },
+  { cat: 'Roupa - cidade europeia', items: ['Casaco intermediário para Milão/Zurique', 'Sapato confortável caminhada', '4-5 conjuntos casuais', 'Roupa para jantar fora (1-2)', 'Pijama quente'] },
+  { cat: 'Eletrônicos', items: ['Adaptador universal (UE tipo C/F)', 'Powerbank 20.000mAh+', 'Câmera + 2 baterias extras (frio drena!)', 'Tripé compacto para aurora', 'Cartão SD extra', 'Fones bluetooth', 'eSIM Airalo Europe Plus ativado'] },
+  { cat: 'Saúde', items: ['Remédios de uso contínuo + receitas', 'Anti-inflamatório, dipirona, antiácido', 'Protetor solar (neve reflete!)', 'Hidratante labial + creme rosto', 'Anti-resfriado (chá de gengibre, vit C)', 'Repelente (verão Sami nas tendas)', 'Band-aids + kit primeiros socorros'] },
+  { cat: 'Reservas confirmadas', items: ['Voos internacionais', 'Hotel Reykjavík (5 noites)', 'Hotel Tromsø (5 noites)', 'APUKKA Glass Igloo (13-14/11)', 'AITO Boutique (15-18/11)', 'Hotel Estocolmo (2 noites)', 'Hotel Zurique (1-2 noites)', 'Radisson Oslo Airport (07/11)', 'Tour Snæfellsnes (03/11)', 'Tour Golden Circle (04/11)', 'Tour South Coast (05/11)', 'Sky/Blue Lagoon (06/11)', 'Aurora chase Reykjavík (06/11)', 'Sami experience (09/11)', 'Aurora safari Tromsø (09/11)', 'Tour Fiordes (10/11)', 'Magic Ice Bar (11/11)', 'Pust Sauna (11/11)', 'Flutuação Ártica (12/11)', 'Snowtrain APUKKA (13/11)', 'Husky + Reindeer APUKKA (14/11)', 'Lakeside Sauna (14/11)', 'Husky AITO (15/11) ⚠ checar disponibilidade', 'Reindeer + Lake Float (15/11)', 'Santa Klaus Village (16/11)', 'Aurora Photo (16/11)', 'Snowmobile + Ice Fishing (17/11)', 'Aurora Photo (17/11)', 'Culinary Workshop (18/11)', 'Aurora BBQ (18/11)'] },
+  { cat: 'Apps instalados', items: ['Google Maps + downloads offline', 'Vedur.is (clima Islândia)', 'SafeTravel.is', 'Yr.no (clima Noruega/Finlândia)', 'My Aurora Forecast Pro', 'SL (transporte Estocolmo)', 'Wolt (delivery Helsinki/Estocolmo)', 'Airbnb / Booking offline', 'WhatsApp Business para reservas'] },
+  { cat: 'Antes de embarcar', items: ['Câmbio mínimo CHF 100 + EUR 100', 'Cartão Wise/Nomad ativo', 'Backup baterias câmera', 'Confirmar voo 24h antes', 'Web check-in', 'Contato emergencial enviado p/ família', 'Compartilhar localização (Find My)', 'Salvar reservas offline (PDF)'] }
+];
+
+let state = { tier: 2, checked: {}, customCosts: {}, mapInstance: null };
+
+function init() {
+  DAYS.forEach(d => d.activities.forEach(a => {
+    state.checked[a.id] = a.tiers.includes(state.tier);
+  }));
+  renderItinerary();
+  renderFlights();
+  renderCostTable();
+  renderChecklist();
+  loadChecklistState();
+  updateLiveTotal();
+  updateTierPrices();
+}
+
+function setTier(t) {
+  state.tier = t;
+  document.querySelectorAll('.tier-pill').forEach(p => {
+    p.classList.remove('active', 't2', 't3');
+    if (parseInt(p.dataset.tier) === t) {
+      p.classList.add('active');
+      if (t === 2) p.classList.add('t2');
+      if (t === 3) p.classList.add('t3');
+    }
+  });
+  DAYS.forEach(d => d.activities.forEach(a => {
+    state.checked[a.id] = a.tiers.includes(t);
+  }));
+  renderItinerary();
+  renderFlights();
+  updateLiveTotal();
+}
+
+function setTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'map') initMapIfNeeded();
+}
+
+function toggleDay(n) {
+  const row = document.querySelector(`[data-day="${n}"]`);
+  row.classList.toggle('open');
+}
+
+function toggleActivity(id) {
+  state.checked[id] = !state.checked[id];
+  document.querySelector(`[data-act="${id}"]`).classList.toggle('checked', state.checked[id]);
+  updateLiveTotal();
+}
+
+function renderItinerary() {
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = DAYS.map(d => {
+    const auroraBars = Array.from({length:5}, (_,i) => `<span class="seg ${i<d.aurora?'lit':''}"></span>`).join('');
+    const acts = d.activities.map(a => {
+      const inTier = a.tiers.includes(state.tier);
+      const checked = state.checked[a.id];
+      return `<div class="activity ${checked?'checked':''}" data-act="${a.id}">
+        <input type="checkbox" ${checked?'checked':''} ${a.forced?'disabled':''} onchange="toggleActivity('${a.id}')">
+        <div class="activity-info">
+          <h5><span class="activity-type ${a.type}">${a.type}</span>${a.name}</h5>
+          <p>${a.desc}</p>
+        </div>
+        <div class="activity-cost ${a.cost===0?'free':''}">${a.cost===0?'—':'R$ '+a.cost.toLocaleString('pt-BR')}</div>
+      </div>`;
+    }).join('');
+    return `<div>
+      <div class="day-row" data-day="${d.n}" onclick="toggleDay(${d.n})">
+        <div class="day-num serif">${String(d.n).padStart(2,'0')}<small>${d.wd} · ${d.date}</small></div>
+        <div class="day-body">
+          <h3 class="serif">${d.title}<span class="expand-icon">+</span></h3>
+          <div class="day-route mono">${d.from} → ${d.to}${d.km>0 ? ' · '+d.km.toLocaleString('pt-BR')+' km' : ''}</div>
+          <div class="day-tags">
+            <span class="day-tag region-${d.region}">${d.region.replace(/-/g,' ')}</span>
+            ${d.isFixed?'<span class="day-tag fixed">⚠ data fixa</span>':''}
+            <span class="day-tag aurora-bar">${auroraBars}</span>
+          </div>
+          <p class="day-narrative">${d.narrative}</p>
+        </div>
+      </div>
+      <div class="day-expanded">
+        <div class="day-expanded-grid">
+          <div class="activities">${acts}</div>
+          <div class="day-side">
+            <div><h6>Hospedagem</h6>${d.side.lodging}</div>
+            <div><h6>Refeição</h6>${d.side.meal}</div>
+            <div><h6>Aurora</h6>${d.side.auroraNote}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderFlights() {
+  const c = COSTS[state.tier];
+  const segs = c.flights.segments;
+  const html = segs.map((s, i) => {
+    const url = `https://www.google.com/travel/flights?q=Flights%20to%20${s.to}%20from%20${s.from}%20on%20${s.date}`;
+    return `<div class="flight-row">
+      <div class="label">${s.name}<small>${s.from} → ${s.to} · ${s.date}</small></div>
+      <input type="number" class="cost-input" data-seg="${i}" value="${s.value}" onchange="editFlight(${i}, this.value)">
+      <span class="mono" style="text-align:right;color:var(--text-dim);font-size:13px;">R$ <span data-seg-display="${i}">${s.value.toLocaleString('pt-BR')}</span></span>
+      <a href="${url}" target="_blank" class="quote-btn">Cotar Google Flights ↗</a>
+    </div>`;
+  }).join('');
+  document.getElementById('flightSegments').innerHTML = html;
+}
+
+function editFlight(i, v) {
+  const val = parseFloat(v) || 0;
+  COSTS[state.tier].flights.segments[i].value = val;
+  document.querySelector(`[data-seg-display="${i}"]`).textContent = val.toLocaleString('pt-BR');
+  document.querySelector(`[data-seg="${i}"]`).classList.add('edited');
+  COSTS[state.tier].flights.value = COSTS[state.tier].flights.segments.reduce((s,x) => s + x.value, 0);
+  updateLiveTotal();
+  renderCostTable();
+}
+
+function calculateTotal(tier) {
+  const c = COSTS[tier];
+  const fixedCost = c.flights.value + c.food.value + c.transport_local.value + c.misc.value + c.insurance.value;
+  let activityCost = 0;
+  DAYS.forEach(d => d.activities.forEach(a => {
+    const isInThisTier = a.tiers.includes(tier);
+    const isChecked = (tier === state.tier) ? state.checked[a.id] : isInThisTier;
+    if (isChecked) activityCost += a.cost;
+  }));
+  return fixedCost + activityCost;
+}
+
+function calculateLiveTotal() {
+  return calculateTotal(state.tier);
+}
+
+function updateLiveTotal() {
+  document.getElementById('liveTotal').textContent = 'R$ ' + calculateLiveTotal().toLocaleString('pt-BR');
+}
+
+function updateTierPrices() {
+  // Snapshot inicial dos tiers baseado nos defaults
+  document.getElementById('tierPrice1').innerHTML = 'R$ ' + calculateTotal(1).toLocaleString('pt-BR') + '<small> /pax</small>';
+  document.getElementById('tierPrice2').innerHTML = 'R$ ' + calculateTotal(2).toLocaleString('pt-BR') + '<small> /pax</small>';
+  document.getElementById('tierPrice3').innerHTML = 'R$ ' + calculateTotal(3).toLocaleString('pt-BR') + '<small> /pax</small>';
+}
+
+function renderCostTable() {
+  // Calcula custos base + atividades por tier (default = atividades do tier)
+  const rows = [];
+  const cats = ['flights', 'food', 'transport_local', 'misc', 'insurance'];
+  const labels = { flights: 'Voos', food: 'Refeições', transport_local: 'Transporte local', misc: 'Buffer', insurance: 'Seguro + ETIAS' };
+  cats.forEach(k => {
+    rows.push({
+      label: labels[k],
+      v1: COSTS[1][k].value,
+      v2: COSTS[2][k].value,
+      v3: COSTS[3][k].value
+    });
+  });
+  // Hospedagens + atividades dinâmicas (por padrão tier-defined)
+  let act1 = 0, act2 = 0, act3 = 0, lod1 = 0, lod2 = 0, lod3 = 0;
+  DAYS.forEach(d => d.activities.forEach(a => {
+    if (a.type === 'lodging') {
+      if (a.tiers.includes(1)) lod1 += a.cost;
+      if (a.tiers.includes(2)) lod2 += a.cost;
+      if (a.tiers.includes(3)) lod3 += a.cost;
+    } else {
+      if (a.tiers.includes(1)) act1 += a.cost;
+      if (a.tiers.includes(2)) act2 += a.cost;
+      if (a.tiers.includes(3)) act3 += a.cost;
+    }
+  }));
+  rows.push({ label: 'Hospedagens (22 noites)', v1: lod1, v2: lod2, v3: lod3 });
+  rows.push({ label: 'Atividades & tours', v1: act1, v2: act2, v3: act3 });
+
+  const html = rows.map(r => `<tr><td>${r.label}</td><td class="num">R$ ${r.v1.toLocaleString('pt-BR')}</td><td class="num">R$ ${r.v2.toLocaleString('pt-BR')}</td><td class="num">R$ ${r.v3.toLocaleString('pt-BR')}</td></tr>`).join('');
+  const t1 = rows.reduce((s,r) => s + r.v1, 0);
+  const t2 = rows.reduce((s,r) => s + r.v2, 0);
+  const t3 = rows.reduce((s,r) => s + r.v3, 0);
+  document.getElementById('costTable').innerHTML = html +
+    `<tr class="total"><td>Total estimado</td><td class="num">R$ ${t1.toLocaleString('pt-BR')}</td><td class="num">R$ ${t2.toLocaleString('pt-BR')}</td><td class="num">R$ ${t3.toLocaleString('pt-BR')}</td></tr>`;
+}
+
+function renderChecklist() {
+  const html = CHECKLIST.map((cat, ci) => {
+    const items = cat.items.map((item, ii) => {
+      const id = `chk_${ci}_${ii}`;
+      return `<div class="check-item"><input type="checkbox" id="${id}" onchange="saveCheck('${id}', this.checked)"><label for="${id}">${item}</label></div>`;
+    }).join('');
+    return `<div class="checklist-card"><h4>${cat.cat}</h4>${items}</div>`;
+  }).join('');
+  document.getElementById('checklistGrid').innerHTML = html;
+}
+
+function saveCheck(id, v) {
+  try {
+    const k = 'aurora_chk_' + id;
+    if (v) localStorage.setItem(k, '1'); else localStorage.removeItem(k);
+  } catch(e) {}
+}
+
+function loadChecklistState() {
+  try {
+    document.querySelectorAll('.check-item input').forEach(el => {
+      if (localStorage.getItem('aurora_chk_' + el.id) === '1') el.checked = true;
+    });
+  } catch(e) {}
+}
+
+function initMapIfNeeded() {
+  if (state.mapInstance) {
+    setTimeout(() => state.mapInstance.invalidateSize(), 50);
+    return;
+  }
+  let attempts = 0;
+  const max = 30;
+  const tryInit = () => {
+    if (typeof L !== 'undefined') {
+      initLeafletMap();
+      return;
+    }
+    attempts++;
+    if (attempts >= max) {
+      document.getElementById('mapContainer').innerHTML = '<div style="padding:60px 20px;text-align:center;color:var(--text-muted);">Mapa não carregado. Pode ser bloqueio de rede, modo offline ou bloqueador de CDN. Tente recarregar a página com conexão à internet ativa.</div>';
+      return;
+    }
+    setTimeout(tryInit, 100);
+  };
+  setTimeout(tryInit, 100);
+}
+
+function initLeafletMap() {
+  const map = L.map('mapContainer', { center: [60, 10], zoom: 4, zoomControl: true, scrollWheelZoom: false });
+  state.mapInstance = map;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap, &copy; CARTO',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Cidades de pernoite
+  const overnight = CITIES_MAP.filter(c => c.type === 'overnight' || c.type === 'origin');
+  overnight.forEach((c, i) => {
+    const color = COUNTRY_COLORS[c.country] || '#888';
+    const icon = L.divIcon({
+      className: 'pin',
+      html: `<div style="background:${color};color:#0a0e1a;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;border:2px solid #0a0e1a;box-shadow:0 0 0 2px ${color}80;font-family:'JetBrains Mono',monospace;">${c.day}</div>`,
+      iconSize: [28, 28], iconAnchor: [14, 14]
+    });
+    L.marker(c.coord, { icon }).addTo(map).bindPopup(`<b>Dia ${c.day} · ${c.name}</b>`);
+  });
+
+  // POIs
+  CITIES_MAP.filter(c => c.type === 'poi').forEach(c => {
+    const icon = L.divIcon({
+      className: 'pin',
+      html: `<div style="background:#6fe6a8;width:10px;height:10px;border-radius:50%;border:2px solid #0a0e1a;box-shadow:0 0 0 1px #6fe6a8;"></div>`,
+      iconSize: [12, 12], iconAnchor: [6, 6]
+    });
+    L.marker(c.coord, { icon }).addTo(map).bindPopup(`<b>${c.name}</b>`);
+  });
+
+  // Linhas conectando overnights em sequência
+  for (let i = 0; i < overnight.length - 1; i++) {
+    const a = overnight[i], b = overnight[i+1];
+    const sameCountry = a.country === b.country || (a.country === 'norway' && b.country === 'norway-arctic');
+    L.polyline([a.coord, b.coord], {
+      color: COUNTRY_COLORS[b.country] || '#888',
+      weight: 2,
+      opacity: 0.65,
+      dashArray: sameCountry ? null : '6, 8'
+    }).addTo(map);
+  }
+
+  // Fit bounds
+  const bounds = L.latLngBounds(CITIES_MAP.map(c => c.coord));
+  map.fitBounds(bounds, { padding: [40, 40] });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
