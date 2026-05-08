@@ -2,7 +2,7 @@
 
 Roteiro interativo da viagem da Letícia ao norte da Europa: Itália, Suíça, Islândia, Noruega, Finlândia e Suécia. 23 dias entre 30/10 e 21/11/2026, com foco em caça à aurora boreal.
 
-🔗 **Acesse o roteiro:** https://voxjurtech.github.io/roteiro-aurora-2026/
+🔗 **Acesse o roteiro:** https://voxjurtech.github.io/aurora-le-e-lari/
 
 ## O que tem
 
