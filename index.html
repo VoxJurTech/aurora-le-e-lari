@@ -232,7 +232,32 @@ a:hover { text-decoration: underline; }
 footer { padding: 40px 24px; text-align: center; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border); margin-top: 60px; }
 footer a { color: var(--aurora-cyan); }
 
+.share-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 500; font-family: inherit; transition: all 0.18s; display: inline-flex; align-items: center; gap: 6px; }
+.share-btn:hover { border-color: var(--aurora-cyan); color: var(--aurora-cyan); }
+
+.share-modal { display: none; position: fixed; inset: 0; background: rgba(5,8,17,0.85); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.share-modal.open { display: flex; }
+.share-modal-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 560px; width: 100%; position: relative; }
+.share-modal-card h3 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+.share-modal-card h3 em { color: var(--aurora-green); font-style: italic; }
+.share-modal-card p { color: var(--text-dim); font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
+.share-modal-card .modal-close { position: absolute; top: 12px; right: 14px; background: transparent; border: none; color: var(--text-muted); font-size: 28px; cursor: pointer; line-height: 1; padding: 0; width: 32px; height: 32px; }
+.share-modal-card .modal-close:hover { color: var(--text); }
+.share-url-box { display: flex; gap: 8px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 6px; margin-bottom: 16px; }
+.share-url-box input { flex: 1; background: transparent; border: none; color: var(--text); padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; outline: none; min-width: 0; }
+.share-url-box button { background: var(--aurora-cyan); color: #0a0e1a; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 13px; transition: all 0.18s; white-space: nowrap; }
+.share-url-box button:hover { background: var(--aurora-green); }
+.share-url-box button.copied { background: var(--aurora-green); }
+.share-tip { font-size: 12px !important; color: var(--text-muted) !important; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; margin-bottom: 0 !important; }
+
+.shared-banner { background: linear-gradient(90deg, rgba(179,136,245,0.18), rgba(94,211,224,0.18)); border-bottom: 1px solid rgba(179,136,245,0.3); color: var(--text); padding: 12px 24px; font-size: 13px; text-align: center; display: none; }
+.shared-banner.show { display: block; }
+.shared-banner button { background: transparent; border: 1px solid var(--aurora-cyan); color: var(--aurora-cyan); padding: 4px 12px; border-radius: 999px; font-size: 12px; cursor: pointer; margin-left: 12px; font-family: inherit; transition: all 0.18s; }
+.shared-banner button:hover { background: var(--aurora-cyan); color: #0a0e1a; }
+
 @media (max-width: 720px) {
+  .share-btn { font-size: 12px; padding: 6px 10px; }
+  .share-modal-card { padding: 22px; }
   .hero { padding: 60px 20px 40px; }
   .panel { padding: 36px 16px; }
   .day-row { grid-template-columns: 70px 1fr; gap: 16px; }
@@ -276,7 +301,13 @@ footer a { color: var(--aurora-cyan); }
       <span class="val mono" id="liveTotal">R$ 0</span>
       <span class="pax">/ 1 pax</span>
     </div>
+    <button class="share-btn" onclick="openShareModal()">🔗 Compartilhar</button>
   </div>
+</div>
+
+<div class="shared-banner" id="sharedBanner">
+  <span>✦ Você está vendo uma versão compartilhada — suas edições ficam salvas só no seu navegador.</span>
+  <button onclick="resetToDefault()">Voltar ao padrão</button>
 </div>
 
 <nav class="tabs">
@@ -570,6 +601,19 @@ footer a { color: var(--aurora-cyan); }
   </div>
   <div class="checklist-grid" id="checklistGrid"></div>
 </section>
+
+<div class="share-modal" id="shareModal" onclick="if(event.target===this)closeShareModal()">
+  <div class="share-modal-card">
+    <button class="modal-close" onclick="closeShareModal()">×</button>
+    <h3 class="serif">Compartilhar <em>esta versão</em></h3>
+    <p>Este link carrega exatamente o tier, atividades marcadas e valores de voos que você está vendo agora. Quem abrir vê o roteiro do mesmo jeito.</p>
+    <div class="share-url-box">
+      <input type="text" id="shareUrlInput" readonly>
+      <button onclick="copyShareUrl()" id="copyBtn">Copiar</button>
+    </div>
+    <p class="share-tip">Quem abrir o link vê sua versão completa. As edições que essa pessoa fizer ficam apenas no navegador dela — sem afetar a sua. Para sincronizar de novo, basta gerar um novo link e mandar.</p>
+  </div>
+</div>
 
 <footer>
   Roteiro Aurora 2026 · Letícia · gerado a partir da planilha "Roteiro Oficial" (out/2025)<br>
@@ -924,10 +968,108 @@ const CHECKLIST = [
 
 let state = { tier: 2, checked: {}, customCosts: {}, mapInstance: null };
 
+const STORAGE_KEY = 'aurora_state_v1';
+const ORIGINAL_FLIGHTS = {
+  1: COSTS[1].flights.segments.map(s => s.value),
+  2: COSTS[2].flights.segments.map(s => s.value),
+  3: COSTS[3].flights.segments.map(s => s.value)
+};
+
+function getShareState() {
+  const checkedIds = [];
+  for (const id in state.checked) if (state.checked[id]) checkedIds.push(id);
+  return {
+    v: 1,
+    t: state.tier,
+    c: checkedIds,
+    f: { 1: COSTS[1].flights.segments.map(s => s.value), 2: COSTS[2].flights.segments.map(s => s.value), 3: COSTS[3].flights.segments.map(s => s.value) }
+  };
+}
+
+function applyShareState(payload) {
+  if (!payload || payload.v !== 1) return false;
+  state.tier = (payload.t === 1 || payload.t === 3) ? payload.t : 2;
+  for (const id in state.checked) state.checked[id] = false;
+  (payload.c || []).forEach(id => { if (state.checked.hasOwnProperty(id)) state.checked[id] = true; });
+  if (payload.f) {
+    [1,2,3].forEach(t => {
+      const arr = payload.f[t];
+      if (Array.isArray(arr)) {
+        arr.forEach((v, i) => { if (COSTS[t].flights.segments[i] && typeof v === 'number') COSTS[t].flights.segments[i].value = v; });
+        COSTS[t].flights.value = COSTS[t].flights.segments.reduce((s,x) => s + x.value, 0);
+      }
+    });
+  }
+  return true;
+}
+
+function encodeStateToString(s) { return btoa(unescape(encodeURIComponent(JSON.stringify(s)))); }
+function decodeStateFromString(str) { return JSON.parse(decodeURIComponent(escape(atob(str)))); }
+
+function persistState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(getShareState())); } catch(e) {}
+}
+
+function loadFromLocalStorage() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? applyShareState(JSON.parse(raw)) : false; } catch(e) { return false; }
+}
+
+function loadFromHash() {
+  const h = window.location.hash;
+  if (!h.startsWith('#s=')) return false;
+  try { return applyShareState(decodeStateFromString(h.slice(3))); } catch(e) { console.warn('Shared state inválido', e); return false; }
+}
+
+function buildShareUrl() {
+  return window.location.origin + window.location.pathname + window.location.search + '#s=' + encodeStateToString(getShareState());
+}
+
+function openShareModal() {
+  document.getElementById('shareUrlInput').value = buildShareUrl();
+  document.getElementById('shareModal').classList.add('open');
+  setTimeout(() => document.getElementById('shareUrlInput').select(), 50);
+}
+
+function closeShareModal() { document.getElementById('shareModal').classList.remove('open'); }
+
+async function copyShareUrl() {
+  const input = document.getElementById('shareUrlInput');
+  const btn = document.getElementById('copyBtn');
+  try { await navigator.clipboard.writeText(input.value); }
+  catch(e) { input.select(); document.execCommand('copy'); }
+  btn.textContent = 'Copiado ✓'; btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+}
+
+function resetToDefault() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+  window.location.reload();
+}
+
+function syncTierPills() {
+  document.querySelectorAll('.tier-pill').forEach(p => {
+    p.classList.remove('active', 't2', 't3');
+    if (parseInt(p.dataset.tier) === state.tier) {
+      p.classList.add('active');
+      if (state.tier === 2) p.classList.add('t2');
+      if (state.tier === 3) p.classList.add('t3');
+    }
+  });
+}
+
 function init() {
   DAYS.forEach(d => d.activities.forEach(a => {
     state.checked[a.id] = a.tiers.includes(state.tier);
   }));
+  const fromHash = loadFromHash();
+  if (fromHash) {
+    document.getElementById('sharedBanner').classList.add('show');
+    persistState();
+  } else {
+    loadFromLocalStorage();
+  }
+  syncTierPills();
   renderItinerary();
   renderFlights();
   renderCostTable();
@@ -939,20 +1081,14 @@ function init() {
 
 function setTier(t) {
   state.tier = t;
-  document.querySelectorAll('.tier-pill').forEach(p => {
-    p.classList.remove('active', 't2', 't3');
-    if (parseInt(p.dataset.tier) === t) {
-      p.classList.add('active');
-      if (t === 2) p.classList.add('t2');
-      if (t === 3) p.classList.add('t3');
-    }
-  });
+  syncTierPills();
   DAYS.forEach(d => d.activities.forEach(a => {
     state.checked[a.id] = a.tiers.includes(t);
   }));
   renderItinerary();
   renderFlights();
   updateLiveTotal();
+  persistState();
 }
 
 function setTab(name, btn) {
@@ -972,6 +1108,7 @@ function toggleActivity(id) {
   state.checked[id] = !state.checked[id];
   document.querySelector(`[data-act="${id}"]`).classList.toggle('checked', state.checked[id]);
   updateLiveTotal();
+  persistState();
 }
 
 function renderItinerary() {
@@ -1023,9 +1160,10 @@ function renderFlights() {
   const segs = c.flights.segments;
   const html = segs.map((s, i) => {
     const url = `https://www.google.com/travel/flights?q=Flights%20to%20${s.to}%20from%20${s.from}%20on%20${s.date}`;
+    const isEdited = ORIGINAL_FLIGHTS[state.tier] && s.value !== ORIGINAL_FLIGHTS[state.tier][i];
     return `<div class="flight-row">
       <div class="label">${s.name}<small>${s.from} → ${s.to} · ${s.date}</small></div>
-      <input type="number" class="cost-input" data-seg="${i}" value="${s.value}" onchange="editFlight(${i}, this.value)">
+      <input type="number" class="cost-input ${isEdited?'edited':''}" data-seg="${i}" value="${s.value}" onchange="editFlight(${i}, this.value)">
       <span class="mono" style="text-align:right;color:var(--text-dim);font-size:13px;">R$ <span data-seg-display="${i}">${s.value.toLocaleString('pt-BR')}</span></span>
       <a href="${url}" target="_blank" class="quote-btn">Cotar Google Flights ↗</a>
     </div>`;
@@ -1041,6 +1179,7 @@ function editFlight(i, v) {
   COSTS[state.tier].flights.value = COSTS[state.tier].flights.segments.reduce((s,x) => s + x.value, 0);
   updateLiveTotal();
   renderCostTable();
+  persistState();
 }
 
 function calculateTotal(tier) {
