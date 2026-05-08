@@ -255,6 +255,107 @@ footer a { color: var(--aurora-cyan); }
 .shared-banner button { background: transparent; border: 1px solid var(--aurora-cyan); color: var(--aurora-cyan); padding: 4px 12px; border-radius: 999px; font-size: 12px; cursor: pointer; margin-left: 12px; font-family: inherit; transition: all 0.18s; }
 .shared-banner button:hover { background: var(--aurora-cyan); color: #0a0e1a; }
 
+@media print {
+  @page { size: A4 portrait; margin: 14mm 12mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  body { background: #fff !important; color: #1a1a1a !important; font-size: 10pt !important; }
+
+  /* Esconder UI interativa */
+  .sticky-bar, .tabs, .shared-banner, .share-modal, .quote-btn, .map-legend, #mapContainer, #panel-map, footer, .share-btn { display: none !important; }
+  .hero-bg, .aurora-anim { display: none !important; }
+
+  /* Hero compacto */
+  .hero { min-height: auto !important; padding: 0 0 8mm !important; border-bottom: 1px solid #ddd !important; page-break-after: avoid; }
+  .hero-content { max-width: 100% !important; }
+  .hero h1 { color: #1a1a1a !important; font-size: 26pt !important; line-height: 1.1 !important; margin-bottom: 10pt !important; }
+  .hero h1 em { color: #1a7048 !important; font-style: italic; }
+  .hero p.lede { color: #444 !important; font-size: 10pt !important; max-width: 100% !important; }
+  .hero-eyebrow { color: #1a7048 !important; }
+  .hero-meta { margin-top: 14pt !important; gap: 10pt !important; }
+  .hero-meta div { border-color: #ccc !important; padding: 6pt 0 !important; }
+  .hero-meta .lbl { color: #888 !important; }
+  .hero-meta .val { color: #1a1a1a !important; font-size: 12pt !important; }
+
+  /* Mostrar todos os panels empilhados */
+  .panel { display: block !important; padding: 14pt 0 0 !important; max-width: 100% !important; page-break-before: always; }
+  .panel:first-of-type { page-break-before: auto; }
+  .panel-header { margin-bottom: 14pt !important; }
+  .panel-header h2 { color: #1a1a1a !important; font-size: 20pt !important; margin-bottom: 4pt !important; }
+  .panel-header h2 em { color: #1a7048 !important; }
+  .panel-header p { color: #555 !important; font-size: 10pt !important; }
+
+  /* Cards */
+  .card, .tier-card, .aurora-card, .log-card, .checklist-card, .callout, .day-side, .flight-row, .activity {
+    background: #fff !important; border: 1px solid #ddd !important; color: #1a1a1a !important; page-break-inside: avoid;
+  }
+  .tier-card h3, .tier-card .price { color: #1a1a1a !important; }
+  .tier-card .summary, .tier-card li, .tier-card li b { color: #555 !important; }
+  .tier-card.recommended { border: 2px solid #1a7048 !important; }
+  .tier-card.recommended::before { background: #1a7048 !important; color: #fff !important; }
+  .callout { border-left: 3px solid #b388f5 !important; }
+  .callout.warn { border-left-color: #d68a55 !important; }
+  .callout.aurora { border-left-color: #1a7048 !important; }
+  .callout h4 { color: #1a1a1a !important; }
+  .callout p { color: #555 !important; }
+
+  /* Timeline expandida */
+  .day-row { cursor: default; border-top: 1px solid #ddd !important; padding: 8pt 0 !important; page-break-inside: avoid; }
+  .day-row .expand-icon { display: none !important; }
+  .day-expanded { display: block !important; padding: 6pt 0 0 0 !important; page-break-inside: avoid; }
+  .day-expanded-grid { grid-template-columns: 1fr 180px !important; gap: 10pt !important; }
+  .day-num { color: #1a1a1a !important; font-size: 20pt !important; }
+  .day-num small { color: #888 !important; }
+  .day-body h3 { color: #1a1a1a !important; font-size: 13pt !important; }
+  .day-route { color: #777 !important; font-size: 9pt !important; }
+  .day-narrative { color: #444 !important; font-size: 9.5pt !important; }
+  .day-tag { background: #f5f5f5 !important; color: #555 !important; border-color: #ddd !important; }
+  .day-tag.fixed { background: #fde4e4 !important; color: #c44 !important; border-color: #e9a !important; }
+
+  /* Atividades */
+  .activity { background: #fafafa !important; padding: 7pt 9pt !important; }
+  .activity.checked { background: #f0faf4 !important; border-color: #cae3d4 !important; }
+  .activity input[type="checkbox"] { width: 11pt !important; height: 11pt !important; }
+  .activity-info h5 { color: #1a1a1a !important; font-size: 9.5pt !important; }
+  .activity-info p { color: #666 !important; font-size: 8.5pt !important; }
+  .activity-cost { color: #1a1a1a !important; font-size: 9.5pt !important; }
+  .activity-type { background: #eee !important; color: #555 !important; }
+  .activity-type.paid { background: #d8f0f4 !important; color: #1a6e80 !important; }
+  .activity-type.premium { background: #ebe1fb !important; color: #5a3a9e !important; }
+  .activity-type.free { background: #d4f0e0 !important; color: #1a7048 !important; }
+  .activity-type.transport { background: #fce6d2 !important; color: #8a4e1e !important; }
+  .activity-type.lodging { background: #fde4ee !important; color: #a04060 !important; }
+
+  .day-side { background: #f8f8f8 !important; padding: 9pt !important; font-size: 9pt !important; }
+  .day-side h6 { color: #888 !important; }
+
+  /* Aurora bars + cards */
+  .aurora-bar .seg { background: #ddd !important; box-shadow: none !important; }
+  .aurora-bar .seg.lit { background: #1a7048 !important; box-shadow: none !important; }
+  .aurora-card .city, .aurora-card .score-row b { color: #1a1a1a !important; }
+  .aurora-card .lat, .aurora-card p, .aurora-card .score-row span { color: #555 !important; }
+  .aurora-card .night-pill { background: #f0f0f0 !important; color: #555 !important; }
+
+  /* Custos */
+  .cost-table { background: #fff !important; border: 1px solid #ddd !important; }
+  .cost-table th { background: #f5f5f5 !important; color: #555 !important; border-color: #ddd !important; }
+  .cost-table td { color: #1a1a1a !important; border-color: #eee !important; }
+  .cost-table tr.total { background: #f5f5f5 !important; }
+  .flight-row { padding: 7pt 9pt !important; }
+  .flight-row input.cost-input { background: #fafafa !important; color: #1a1a1a !important; border-color: #ddd !important; }
+  .flight-row input.cost-input.edited { background: #d8f0f4 !important; color: #1a6e80 !important; border-color: #5ed3e0 !important; }
+
+  /* Logística + checklist */
+  .log-card h4, .checklist-card h4 { color: #1a1a1a !important; }
+  .log-card p, .log-card li, .checklist-card label { color: #555 !important; }
+  .log-card li::before { color: #1a7048 !important; }
+  .check-item input { display: inline-block !important; }
+
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  .tier-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 8pt !important; }
+  .aurora-grid, .log-grid, .checklist-grid { grid-template-columns: 1fr 1fr !important; gap: 8pt !important; }
+}
+
 @media (max-width: 720px) {
   .share-btn { font-size: 12px; padding: 6px 10px; }
   .share-modal-card { padding: 22px; }
@@ -301,6 +402,7 @@ footer a { color: var(--aurora-cyan); }
       <span class="val mono" id="liveTotal">R$ 0</span>
       <span class="pax">/ 1 pax</span>
     </div>
+    <button class="share-btn" onclick="window.print()" title="Imprimir ou salvar como PDF">📄 PDF</button>
     <button class="share-btn" onclick="openShareModal()">🔗 Compartilhar</button>
   </div>
 </div>
